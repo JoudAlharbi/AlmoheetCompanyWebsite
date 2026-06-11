@@ -1,0 +1,47 @@
+import ContactCTA from "@/components/sections/ContactCTA";
+import FeaturedProjects from "@/components/sections/FeaturedProjects";
+import HeroSection from "@/components/sections/HeroSection";
+import ServicesOverview from "@/components/sections/ServicesOverview";
+import StatsSection from "@/components/sections/StatsSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import TrustedClients from "@/components/sections/TrustedClients";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import type { Locale } from "@/lib/i18n/config";
+import { getDictionary } from "@/lib/i18n/getDictionary";
+import { buildMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const dict = getDictionary(locale);
+  return buildMetadata({
+    locale,
+    title: dict.nav.home,
+    description: dict.hero.subtitle,
+  });
+}
+
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const dict = getDictionary(locale);
+
+  return (
+    <>
+      <HeroSection locale={locale} dict={dict} />
+      <StatsSection dict={dict} />
+      <WhyChooseUs dict={dict} />
+      <ServicesOverview locale={locale} dict={dict} />
+      <FeaturedProjects locale={locale} dict={dict} />
+      <TrustedClients dict={dict} />
+      <TestimonialsSection locale={locale} dict={dict} />
+      <ContactCTA locale={locale} dict={dict} />
+    </>
+  );
+}

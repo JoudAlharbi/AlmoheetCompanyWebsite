@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-white text-slate-900 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  ::selection {
+    @apply bg-brand-blue/20 text-brand-dark dark:bg-brand-blue/30 dark:text-white;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-28;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/20 bg-white/70 shadow-soft backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-blue via-brand-dark to-brand-gold bg-clip-text text-transparent;
+  }
+
+  .hero-grid {
+    background-size: 48px 48px;
+    @apply bg-grid-light;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-soft;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-brand-gold after:transition-all hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-brand-blue/40 hover:bg-brand-blue/60;
+}
+
+/* Loading screen animation */
+@keyframes loader-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-ring {
+  animation: loader-ring 1.2s linear infinite;
+}
