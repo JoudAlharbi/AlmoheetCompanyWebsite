@@ -1,4 +1,4 @@
-import type { Localized } from "../site";
+﻿import type { Localized } from "../site";
 
 export type PortfolioCategory = {
   slug: string;
@@ -6,381 +6,394 @@ export type PortfolioCategory = {
 };
 
 export const portfolioCategories: PortfolioCategory[] = [
-  { slug: "prints", label: { ar: "مطبوعات", en: "Prints" } },
-  { slug: "packaging", label: { ar: "تغليف", en: "Packaging" } },
-  { slug: "logos", label: { ar: "شعارات", en: "Logos" } },
-  { slug: "shields", label: { ar: "دروع", en: "Shields" } },
-  { slug: "identity", label: { ar: "هويات بصرية", en: "Visual Identity" } },
-  { slug: "billboards", label: { ar: "لوحات إعلانية", en: "Billboards" } },
+  { slug: "stamps", label: { ar: "الأختام", en: "Stamps" } },
+  { slug: "shields", label: { ar: "الدروع والتكريم", en: "Shields & Awards" } },
+  {
+    slug: "billboards",
+    label: { ar: "البنرات واللوحات الإعلانية", en: "Banners & Signage" },
+  },
+  {
+    slug: "acrylic-light",
+    label: { ar: "الأكريليك واللوحات المضيئة", en: "Acrylic & Light Boxes" },
+  },
+  {
+    slug: "stickers",
+    label: { ar: "الملصقات والستيكرات", en: "Stickers & Labels" },
+  },
+  {
+    slug: "product-printing",
+    label: { ar: "الطباعة على المنتجات", en: "Product Printing" },
+  },
+  {
+    slug: "packaging",
+    label: { ar: "الطباعة على العبوات والتغليف", en: "Packaging & Containers" },
+  },
+  { slug: "apparel", label: { ar: "الطباعة على الملابس", en: "Apparel Printing" } },
+  {
+    slug: "identity",
+    label: { ar: "الهوية البصرية والعلامات التجارية", en: "Visual Identity & Branding" },
+  },
+  {
+    slug: "exhibitions",
+    label: { ar: "المعارض والستاندات", en: "Exhibitions & Stands" },
+  },
+  { slug: "misc", label: { ar: "مشاريع متنوعة", en: "Miscellaneous Projects" } },
 ];
 
-/** Consistent 4:3 crop for all portfolio imagery */
-const portfolioImage = (photoId: string) =>
-  `https://images.unsplash.com/${photoId}?auto=format&fit=crop&w=1200&h=900&q=85`;
+const img = (filename: string) => `/portfolio/images/${filename}`;
 
 export type Project = {
   slug: string;
   category: string;
   title: Localized;
-  client: Localized;
+  summary?: Localized;
+  images: string[];
   year: string;
-  image: string;
-  accent: string;
-  summary: Localized;
-  challenge: Localized;
-  solution: Localized;
-  result: Localized;
 };
 
 export const projects: Project[] = [
   {
-    slug: "nahdi-identity",
-    category: "identity",
-    title: { ar: "هوية حملة موسمية", en: "Seasonal Campaign Identity" },
-    client: { ar: "النهدي", en: "Nahdi" },
-    year: "2025",
-    image: portfolioImage("photo-1611224923853-80b023f02d71"),
-    accent: "from-primary-500 to-brand-dark",
-    summary: {
-      ar: "هوية بصرية متكاملة لحملة موسمية كبرى.",
-      en: "A complete visual identity for a major seasonal campaign.",
+    slug: "automatic-stamps-catalog",
+    category: "stamps",
+    title: {
+      ar: "أختام أوتوماتيك بمقاسات متعددة",
+      en: "Automatic Stamps in Multiple Sizes",
     },
-    challenge: {
-      ar: "إطلاق حملة موسمية تتميز عن المنافسين وتحافظ على هوية العلامة.",
-      en: "Launch a seasonal campaign that stands out from competitors while staying on-brand.",
-    },
-    solution: {
-      ar: "طورنا نظاماً بصرياً مرناً يجمع بين روح المناسبة وهوية العلامة الأساسية.",
-      en: "We built a flexible visual system blending the occasion's spirit with the core brand identity.",
-    },
-    result: {
-      ar: "زيادة ملحوظة في التفاعل والتعرّف على الحملة عبر الفروع والمنصات.",
-      en: "A notable increase in engagement and campaign recognition across branches and platforms.",
-    },
-  },
-  {
-    slug: "aljazira-report",
-    category: "prints",
-    title: { ar: "التقرير السنوي", en: "Annual Report" },
-    client: { ar: "بنك الجزيرة", en: "Bank Aljazira" },
+    images: [img("shield-01.jpg"), img("shield-02.jpg"), img("shield-03.jpg")],
     year: "2024",
-    image: portfolioImage("photo-1544716278-ca5e3f4abd8c"),
-    accent: "from-brand-dark to-brand-navy",
-    summary: {
-      ar: "تصميم وطباعة تقرير سنوي فاخر.",
-      en: "Design and print of a premium annual report.",
-    },
-    challenge: {
-      ar: "تقديم بيانات مالية معقدة بأسلوب بصري واضح وأنيق.",
-      en: "Present complex financial data in a clear, elegant visual style.",
-    },
-    solution: {
-      ar: "صممنا نظام إنفوجرافيك متناسق مع طباعة فاخرة بتشطيبات راقية.",
-      en: "We designed a consistent infographic system with premium printing and refined finishes.",
-    },
-    result: {
-      ar: "تقرير حاز إشادة واسعة من المساهمين والجهات الرسمية.",
-      en: "A report widely praised by shareholders and official entities.",
-    },
   },
   {
-    slug: "mbl-packaging",
+    slug: "quriyat-cafeteria-sign",
+    category: "billboards",
+    title: {
+      ar: "لوحة محل كفتيريا القريات الحديثة",
+      en: "Al-Quriyat Modern Cafeteria Shop Sign",
+    },
+    images: [img("billboard-street.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "jamrat-hatab-shop-sign",
+    category: "billboards",
+    title: {
+      ar: "لوحة محل جمرة حطب",
+      en: "Jamrat Hatab Shop Signboard",
+    },
+    images: [img("billboard-outdoor.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "amsteel-truck-wrap",
+    category: "billboards",
+    title: {
+      ar: "تغليف شاحنة AMSteel",
+      en: "AMSteel Truck Branding Wrap",
+    },
+    images: [img("billboard-vehicle-wrap.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "abaaq-perfume-roll-up",
+    category: "billboards",
+    title: {
+      ar: "رول اب بنر لبراند عبق",
+      en: "Abaaq Perfume Roll-Up Banner",
+    },
+    images: [img("billboard-roll-up-1.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "federation-restaurant-roll-ups",
+    category: "billboards",
+    title: {
+      ar: "رول اب بنرات الاتحاد السعودي والركن الدمشقي",
+      en: "Saudi Federation & Al Rukn Al Dimashqi Roll-Ups",
+    },
+    images: [img("billboard-roll-up-2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "al-hammadi-wedding-x-stand",
+    category: "exhibitions",
+    title: {
+      ar: "ستاند X-Banner لأفراح الحمادي",
+      en: "Al-Hammadi Wedding X-Stand Banner",
+    },
+    images: [img("billboard-x-stand.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "feather-flag-service-display",
+    category: "billboards",
+    title: {
+      ar: "أعلام ريشة لعرض خدمات المحيط",
+      en: "Feather Flags Showcasing Al Moheet Services",
+    },
+    images: [img("billboard-flag.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "large-format-billboard-mockup",
+    category: "misc",
+    title: {
+      ar: "لوحة طرق إعلانية كبيرة",
+      en: "Large-Format Roadside Billboard",
+    },
+    images: [img("billboard-display.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-exhibition-booth",
+    category: "exhibitions",
+    title: {
+      ar: "بوث معرض متكامل لوكالة المحيط",
+      en: "Al Moheet Integrated Exhibition Booth",
+    },
+    images: [img("acrylic-exhibition-wall.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "madar-grid-display-stands",
+    category: "exhibitions",
+    title: {
+      ar: "ستاندات شبكية لشركة مدار الأصلي",
+      en: "Madar Al-Asli Grid Display Stands",
+    },
+    images: [img("acrylic-display-stand.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "madar-auto-exhibition-popup",
+    category: "exhibitions",
+    title: {
+      ar: "خلفية منحنية وطاولة لشركة مدار الأصلي",
+      en: "Madar Al-Asli Curved Backdrop & Counter",
+    },
+    images: [img("apparel-tshirt.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "rafeeqat-tamr-product-stickers",
+    category: "stickers",
+    title: {
+      ar: "ملصقات دائرية لمنتج رقيقة تمر",
+      en: "Round Labels for Rafeeqat Tamr Product",
+    },
+    images: [img("stickers-round-roll.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "carwash-loyalty-cards",
+    category: "identity",
+    title: {
+      ar: "بطاقات ولاء لمغسلة سيارات",
+      en: "Car Wash Loyalty Punch Cards",
+    },
+    images: [img("stickers-note-case.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-mug",
+    category: "product-printing",
+    title: {
+      ar: "كوب سيراميك مطبوع لوكالة المحيط",
+      en: "Al Moheet Branded Ceramic Mug",
+    },
+    images: [img("product-coffee-mug.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "dr-reem-branded-cups",
+    category: "product-printing",
+    title: {
+      ar: "أكواب Dr. Reem مطبوعة",
+      en: "Dr. Reem Branded Paper Cups",
+    },
+    images: [img("product-paper-cup-2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "secret-brand-printed-packaging",
     category: "packaging",
-    title: { ar: "تصميم عبوات منتج", en: "Product Packaging" },
-    client: { ar: "MBL", en: "MBL" },
-    year: "2025",
-    image: portfolioImage("photo-1556228720-195a672e8a03"),
-    accent: "from-gold-400 to-gold-600",
-    summary: {
-      ar: "عبوات مبتكرة تميّز المنتج على الرف.",
-      en: "Innovative packaging that makes the product stand out.",
+    title: {
+      ar: "علب وأكياس وأكواب مطبوعة لبراند سكريت",
+      en: "Secret Brand Printed Boxes, Bags & Cups",
     },
-    challenge: {
-      ar: "تمييز المنتج في سوق مزدحم مع إبراز قيمته.",
-      en: "Differentiate the product in a crowded market while highlighting its value.",
-    },
-    solution: {
-      ar: "ابتكرنا تصميم تغليف جريء بخامات مميزة وتجربة فتح فريدة.",
-      en: "We created a bold packaging design with premium materials and a unique unboxing experience.",
-    },
-    result: {
-      ar: "ارتفاع في معدل اختيار المنتج عند نقاط البيع.",
-      en: "An increase in product selection rate at points of sale.",
-    },
-  },
-  {
-    slug: "ams-logo",
-    category: "logos",
-    title: { ar: "تصميم شعار الشركة", en: "Corporate Logo" },
-    client: { ar: "AMS Steel", en: "AMS Steel" },
+    images: [
+      img("promo-gift-box.jpg"),
+      img("promo-paper-bag.jpg"),
+      img("product-paper-cup-1.jpg"),
+    ],
     year: "2024",
-    image: portfolioImage("photo-1561070791-2526d30994b5"),
-    accent: "from-primary-600 to-primary-900",
-    summary: {
-      ar: "شعار صناعي قوي يعكس المتانة.",
-      en: "A strong industrial logo reflecting durability.",
-    },
-    challenge: {
-      ar: "تصميم شعار يجمع بين القوة الصناعية والحداثة.",
-      en: "Design a logo combining industrial strength with modernity.",
-    },
-    solution: {
-      ar: "اعتمدنا أشكالاً هندسية متينة مع لمسة معاصرة ولوحة ألوان جريئة.",
-      en: "We used solid geometric forms with a contemporary touch and a bold color palette.",
-    },
-    result: {
-      ar: "هوية صناعية متماسكة طُبّقت عبر كل نقاط التواصل.",
-      en: "A cohesive industrial identity applied across every touchpoint.",
-    },
   },
   {
-    slug: "excellence-shields",
-    category: "shields",
-    title: { ar: "دروع تكريم الموظفين", en: "Employee Award Shields" },
-    client: { ar: "جهة حكومية", en: "Government Entity" },
-    year: "2025",
-    image: portfolioImage("photo-1513885535751-8b9238bd12a7"),
-    accent: "from-gold-300 to-gold-500",
-    summary: {
-      ar: "دروع كريستالية فاخرة لحفل التكريم.",
-      en: "Premium crystal shields for an awards ceremony.",
-    },
-    challenge: {
-      ar: "تصميم درع راقٍ يعبّر عن قيمة التكريم.",
-      en: "Design an elegant shield that conveys the value of recognition.",
-    },
-    solution: {
-      ar: "نفّذنا دروعاً كريستالية بنقش ليزري دقيق وتغليف فاخر.",
-      en: "We produced crystal shields with precise laser engraving and premium packaging.",
-    },
-    result: {
-      ar: "دروع نالت إعجاب المكرَّمين والجهة المنظِّمة.",
-      en: "Shields admired by recipients and the organizing entity alike.",
-    },
-  },
-  {
-    slug: "retail-billboards",
-    category: "billboards",
-    title: { ar: "حملة لوحات طرقية", en: "Outdoor Billboard Campaign" },
-    client: { ar: "علامة تجزئة", en: "Retail Brand" },
-    year: "2024",
-    image: portfolioImage("photo-1573164713714-d95e4362428a"),
-    accent: "from-primary-500 to-brand-dark",
-    summary: {
-      ar: "لوحات طرقية تغطي مداخل المدينة.",
-      en: "Roadside billboards covering the city's entrances.",
-    },
-    challenge: {
-      ar: "إيصال رسالة واضحة في ثوانٍ لجمهور سريع الحركة.",
-      en: "Deliver a clear message in seconds to a fast-moving audience.",
-    },
-    solution: {
-      ar: "صممنا لوحات بسيطة بصرياً برسالة قوية وألوان عالية التباين.",
-      en: "We designed visually simple billboards with a strong message and high-contrast colors.",
-    },
-    result: {
-      ar: "زيادة في الوعي بالعلامة خلال فترة الحملة.",
-      en: "Increased brand awareness throughout the campaign period.",
-    },
-  },
-  {
-    slug: "cafe-identity",
-    category: "identity",
-    title: { ar: "هوية مقهى", en: "Café Brand Identity" },
-    client: { ar: "مقهى محلي", en: "Local Café" },
-    year: "2025",
-    image: portfolioImage("photo-1445116575220-99a8f20b28da"),
-    accent: "from-gold-400 to-brand-dark",
-    summary: {
-      ar: "هوية دافئة لمقهى متخصص.",
-      en: "A warm identity for a specialty café.",
-    },
-    challenge: {
-      ar: "بناء هوية تعكس تجربة ضيافة مميزة.",
-      en: "Build an identity reflecting a distinctive hospitality experience.",
-    },
-    solution: {
-      ar: "طورنا لوحة ألوان دافئة وخطوطاً مخصصة وتطبيقات على أكواب وتغليف ولوحات.",
-      en: "We developed a warm palette, custom typography, and applications on cups, packaging, and signage.",
-    },
-    result: {
-      ar: "هوية متماسكة عززت ولاء العملاء وحضور المقهى.",
-      en: "A cohesive identity that strengthened customer loyalty and presence.",
-    },
-  },
-  {
-    slug: "menu-prints",
-    category: "prints",
-    title: { ar: "قوائم طعام فاخرة", en: "Premium Menus" },
-    client: { ar: "مطعم راقٍ", en: "Fine Restaurant" },
-    year: "2024",
-    image: portfolioImage("photo-1568668043996-9a2d09e8c4ce"),
-    accent: "from-brand-dark to-primary-500",
-    summary: {
-      ar: "قوائم مطبوعة بخامات فاخرة.",
-      en: "Printed menus with premium materials.",
-    },
-    challenge: {
-      ar: "تصميم قائمة تعكس مستوى المطعم الراقي.",
-      en: "Design a menu reflecting the restaurant's upscale level.",
-    },
-    solution: {
-      ar: "اخترنا ورقاً فاخراً وتشطيبات ذهبية مع تنسيق أنيق.",
-      en: "We chose premium paper, gold finishes, and an elegant layout.",
-    },
-    result: {
-      ar: "تجربة طعام أكثر فخامة انعكست على رضا الضيوف.",
-      en: "A more luxurious dining experience reflected in guest satisfaction.",
-    },
-  },
-  {
-    slug: "corporate-stationery",
-    category: "prints",
-    title: { ar: "مطبوعات مؤسسية", en: "Corporate Stationery" },
-    client: { ar: "شركة استثمار", en: "Investment Firm" },
-    year: "2025",
-    image: portfolioImage("photo-1507679799987-c73779587ccf"),
-    accent: "from-brand-dark to-brand-navy",
-    summary: {
-      ar: "بطاقات وظروف وملفات بتصميم مؤسسي راقٍ.",
-      en: "Business cards, envelopes, and folders with refined corporate design.",
-    },
-    challenge: {
-      ar: "توحيد مطبوعات الشركة بمظهر يعكس مصداقيتها المالية.",
-      en: "Unify company print materials with a look that reflects financial credibility.",
-    },
-    solution: {
-      ar: "صممنا نظام مطبوعات متكامل بخامات فاخرة وتشطيبات دقيقة.",
-      en: "We designed an integrated print system with premium materials and precise finishes.",
-    },
-    result: {
-      ar: "هوية مطبوعة متناسقة عززت حضور الشركة في كل تواصل رسمي.",
-      en: "A consistent print identity that elevated the company's presence in every formal touchpoint.",
-    },
-  },
-  {
-    slug: "luxury-packaging",
+    slug: "fresh-mango-juice-label",
     category: "packaging",
-    title: { ar: "تغليف منتجات فاخرة", en: "Luxury Product Packaging" },
-    client: { ar: "علامة تجارية", en: "Luxury Brand" },
+    title: {
+      ar: "ملصق عبوة عصير Fresh مانجو",
+      en: "Fresh Mango Juice Bottle Label",
+    },
+    images: [img("product-orange-juice.jpg")],
     year: "2024",
-    image: portfolioImage("photo-1608306448193-e3a32d5b38d4"),
-    accent: "from-gold-400 to-gold-600",
-    summary: {
-      ar: "عبوات فاخرة تعكس قيمة المنتج.",
-      en: "Premium packaging that reflects product value.",
-    },
-    challenge: {
-      ar: "إبراز فخامة المنتج منذ أول نظرة على الرف.",
-      en: "Convey product luxury from the first glance on the shelf.",
-    },
-    solution: {
-      ar: "اعتمدنا خامات مميزة وتشطيبات ذهبية وتصميم بسيط أنيق.",
-      en: "We used distinctive materials, gold finishes, and an elegant minimalist design.",
-    },
-    result: {
-      ar: "تغليف رفع من تصور العلامة وزاد من جاذبية المنتج.",
-      en: "Packaging that elevated brand perception and increased product appeal.",
-    },
   },
   {
-    slug: "storefront-signage",
-    category: "billboards",
-    title: { ar: "هوية واجهة متجر", en: "Storefront Branding" },
-    client: { ar: "علامة تجزئة", en: "Retail Brand" },
-    year: "2025",
-    image: portfolioImage("photo-1582719478250-c89cae4dc85b"),
-    accent: "from-primary-500 to-brand-dark",
-    summary: {
-      ar: "تصميم وتنفيذ هوية واجهة متجر تجاري.",
-      en: "Design and execution of a retail storefront identity.",
+    slug: "fawakeh-baladi-container-label",
+    category: "packaging",
+    title: {
+      ar: "ملصق عبوة فواكه بلدي",
+      en: "Fawakeh Baladi Container Label",
     },
-    challenge: {
-      ar: "جذب انتباه الزوار وتمييز المتجر في موقع مزدحم.",
-      en: "Attract visitors and distinguish the store in a busy location.",
-    },
-    solution: {
-      ar: "طورنا نظام لافتات وواجهة متناسق مع الهوية البصرية للعلامة.",
-      en: "We developed a signage and facade system aligned with the brand's visual identity.",
-    },
-    result: {
-      ar: "زيادة في عدد الزوار وتعزيز حضور العلامة في المنطقة.",
-      en: "Increased foot traffic and stronger brand presence in the area.",
-    },
+    images: [img("product-blueberries-pack.jpg")],
+    year: "2024",
   },
   {
-    slug: "exhibition-booth",
+    slug: "harir-spray-bottle-label",
+    category: "packaging",
+    title: {
+      ar: "ملصق زجاجة مطهر HARIR",
+      en: "HARIR Disinfectant Spray Label",
+    },
+    images: [img("product-spray-bottle.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-gift-box",
+    category: "packaging",
+    title: {
+      ar: "علبة مطوية مطبوعة لوكالة المحيط",
+      en: "Al Moheet Branded Folding Gift Box",
+    },
+    images: [img("product-folding-box.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-wrapping-paper",
+    category: "packaging",
+    title: {
+      ar: "ورق تغليف مطبوع بشعار المحيط",
+      en: "Al Moheet Logo Printed Wrapping Paper",
+    },
+    images: [img("product-wrapping-paper.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-pens",
+    category: "product-printing",
+    title: {
+      ar: "أقلام مطبوعة بشعار المحيط",
+      en: "Al Moheet Logo Printed Pens",
+    },
+    images: [img("promo-pen.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-keychain",
+    category: "product-printing",
+    title: {
+      ar: "ميدالية مفاتيح مطبوعة",
+      en: "Branded Metal Keychain",
+    },
+    images: [img("promo-keychain.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-tote-bag",
+    category: "product-printing",
+    title: {
+      ar: "حقيبة قماشية مطبوعة لوكالة المحيط",
+      en: "Al Moheet Branded Canvas Tote Bag",
+    },
+    images: [img("promo-tote-bag.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "wedding-table-tent-cards",
     category: "identity",
-    title: { ar: "جناح معرض تجاري", en: "Exhibition Booth" },
-    client: { ar: "شركة تقنية", en: "Tech Company" },
+    title: {
+      ar: "بطاقات ترحيب طاولة لحفل زفاف",
+      en: "Wedding Table Tent Welcome Cards",
+    },
+    images: [img("promo-table-tent.jpg")],
     year: "2024",
-    image: portfolioImage("photo-1540575467063-178a50c2d87b"),
-    accent: "from-primary-600 to-brand-navy",
-    summary: {
-      ar: "تصميم جناح احترافي لمعرض دولي.",
-      en: "Professional booth design for an international exhibition.",
-    },
-    challenge: {
-      ar: "إبراز العلامة في معرض مزدحم بمنافسين عالميين.",
-      en: "Stand out at a crowded exhibition among global competitors.",
-    },
-    solution: {
-      ar: "صممنا جناحاً معمارياً جذاباً بمواد عالية الجودة وإضاءة استراتيجية.",
-      en: "We designed an architecturally striking booth with premium materials and strategic lighting.",
-    },
-    result: {
-      ar: "جناح حصد اهتماماً واسعاً وزاد من فرص الشراكات التجارية.",
-      en: "A booth that drew wide attention and increased business partnership opportunities.",
-    },
   },
   {
-    slug: "vehicle-branding",
-    category: "billboards",
-    title: { ar: "تغليف مركبات", en: "Vehicle Branding" },
-    client: { ar: "شركة لوجستية", en: "Logistics Company" },
-    year: "2025",
-    image: portfolioImage("photo-1619642751034-765bf136d6eb"),
-    accent: "from-brand-dark to-primary-500",
-    summary: {
-      ar: "تصميم وتنفيذ تغليف أسطول مركبات.",
-      en: "Design and wrap of a fleet of branded vehicles.",
-    },
-    challenge: {
-      ar: "تحويل أسطول التوصيل إلى وسيط إعلاني متحرك.",
-      en: "Turn a delivery fleet into a mobile advertising medium.",
-    },
-    solution: {
-      ar: "طورنا تصميم تغليف جريء وواضح يحافظ على هوية الشركة على كل مركبة.",
-      en: "We developed a bold, clear wrap design maintaining company identity on every vehicle.",
-    },
-    result: {
-      ar: "زيادة في التعرّف على العلامة في شوارع المدينة.",
-      en: "Increased brand recognition across city streets.",
-    },
-  },
-  {
-    slug: "social-campaign",
+    slug: "astrastack-business-cards",
     category: "identity",
-    title: { ar: "حملة وسائل التواصل", en: "Social Media Campaign" },
-    client: { ar: "علامة استهلاكية", en: "Consumer Brand" },
+    title: {
+      ar: "بطاقات عمل Astra Stack",
+      en: "Astra Stack Business Cards",
+    },
+    images: [img("identity-business-cards.jpg")],
     year: "2024",
-    image: portfolioImage("photo-1611162616305-c69b4a5a6f8b"),
-    accent: "from-primary-500 to-gold-400",
-    summary: {
-      ar: "تصاميم حملة رقمية متكاملة.",
-      en: "Integrated digital campaign designs.",
+  },
+  {
+    slug: "almoheet-corporate-stationery",
+    category: "identity",
+    title: {
+      ar: "قرطاسية مكتبية لوكالة المحيط",
+      en: "Al Moheet Corporate Stationery Set",
     },
-    challenge: {
-      ar: "بناء حضور رقمي متناسق عبر جميع المنصات.",
-      en: "Build a consistent digital presence across all platforms.",
+    images: [img("identity-stationery.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "glamour-touch-salon-print",
+    category: "identity",
+    title: {
+      ar: "مطبوعات مركز غلامور توتش للتزيين النسائي",
+      en: "Glamour Touch Beauty Salon Print Collateral",
     },
-    solution: {
-      ar: "أنشأنا نظاماً بصرياً للحملة يشمل منشورات وقصص وإعلانات.",
-      en: "We created a campaign visual system covering posts, stories, and ads.",
+    images: [img("billboard-curved-poster.jpg"), img("identity-flyer-dl.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "qadat-invoice-forms",
+    category: "identity",
+    title: {
+      ar: "فواتير تجارية لمؤسسة قادة الصفقات",
+      en: "Qadat Al-Safaqat Commercial Invoice Forms",
     },
-    result: {
-      ar: "نمو ملحوظ في التفاعل والوصول خلال فترة الحملة.",
-      en: "Notable growth in engagement and reach during the campaign period.",
+    images: [img("misc-a4-flyer.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "arkan-company-profile",
+    category: "identity",
+    title: {
+      ar: "بروفايل شركة مكتب أركان",
+      en: "Maktab Arkan Company Profile Booklet",
     },
+    images: [img("misc-book-print.jpg")],
+    year: "2024",
   },
 ];
+
+export type GalleryImage = {
+  id: string;
+  projectSlug: string;
+  category: string;
+  title: Localized;
+  summary?: Localized;
+  src: string;
+  imageIndex: number;
+  imageCount: number;
+};
+
+export function buildGalleryImages(): GalleryImage[] {
+  return projects.flatMap((project) =>
+    project.images.map((src, imageIndex) => ({
+      id: `${project.slug}-${imageIndex}`,
+      projectSlug: project.slug,
+      category: project.category,
+      title: project.title,
+      summary: project.summary,
+      src,
+      imageIndex,
+      imageCount: project.images.length,
+    })),
+  );
+}
+
+export function getProjectBySlug(slug: string) {
+  return projects.find((p) => p.slug === slug);
+}

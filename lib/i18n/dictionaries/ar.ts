@@ -168,7 +168,7 @@ const ar: Dictionary = {
   portfolioPage: {
     badge: "أعمالنا",
     title: "معرض أعمالنا",
-    subtitle: "استعرض نماذج من مشاريعنا المتنوعة عبر مختلف المجالات الإبداعية.",
+    subtitle: "نماذج حقيقية من مشاريع الطباعة والدعاية والإعلان التي نفذتها وكالة المحيط.",
     all: "الكل",
     challenge: "التحدي",
     solution: "الحل",
@@ -177,6 +177,9 @@ const ar: Dictionary = {
     client: "العميل",
     year: "السنة",
     related: "مشاريع ذات صلة",
+    viewGallery: "عرض المعرض",
+    emptyCategory: "لا توجد مشاريع في هذا التصنيف حالياً.",
+    gallery: "معرض الصور",
   },
   clientsPage: {
     badge: "عملاؤنا",

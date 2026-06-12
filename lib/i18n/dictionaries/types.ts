@@ -115,6 +115,9 @@ export type Dictionary = {
     client: string;
     year: string;
     related: string;
+    viewGallery: string;
+    emptyCategory: string;
+    gallery: string;
   };
   clientsPage: {
     badge: string;

@@ -1,6 +1,6 @@
 import Button from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/AnimatedCounter";
-import { projects, portfolioCategories } from "@/lib/data/portfolio";
+import { portfolioCategories, projects } from "@/lib/data/portfolio";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
 import { buildMetadata } from "@/lib/metadata";
@@ -30,7 +30,9 @@ export async function generateMetadata({
   return buildMetadata({
     locale,
     title: localized(project.title, locale),
-    description: localized(project.summary, locale),
+    description: project.summary
+      ? localized(project.summary, locale)
+      : localized(project.title, locale),
     path: `/portfolio/${slug}`,
   });
 }
@@ -56,7 +58,7 @@ export default async function ProjectDetailPage({
       <section className="relative pt-32">
         <div className="relative aspect-[21/9] overflow-hidden md:aspect-[21/8]">
           <Image
-            src={project.image}
+            src={project.images[0]}
             alt={localized(project.title, locale)}
             fill
             className="object-cover object-center"
@@ -71,9 +73,11 @@ export default async function ProjectDetailPage({
             <h1 className="text-3xl font-bold text-white md:text-5xl">
               {localized(project.title, locale)}
             </h1>
-            <p className="mt-2 text-white/70">
-              {localized(project.client, locale)} · {project.year}
-            </p>
+            {project.summary && (
+              <p className="mt-3 max-w-2xl text-lg text-white/75">
+                {localized(project.summary, locale)}
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -81,25 +85,27 @@ export default async function ProjectDetailPage({
       <section className="section-padding">
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-3">
-            <div className="lg:col-span-2 space-y-10">
-              {(
-                [
-                  ["challenge", project.challenge],
-                  ["solution", project.solution],
-                  ["result", project.result],
-                ] as const
-              ).map(([key, content], i) => (
-                <ScrollReveal key={key} delay={i * 0.1}>
-                  <div>
-                    <h2 className="mb-3 text-xl font-bold text-brand-dark dark:text-white">
-                      {dict.portfolioPage[key]}
-                    </h2>
-                    <p className="leading-relaxed text-slate-600 dark:text-slate-400">
-                      {localized(content, locale)}
-                    </p>
-                  </div>
-                </ScrollReveal>
-              ))}
+            <div className="lg:col-span-2">
+              <h2 className="mb-6 text-2xl font-bold text-brand-dark dark:text-white">
+                {dict.portfolioPage.gallery}
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {project.images.map((src, index) => (
+                  <ScrollReveal key={src} delay={index * 0.05}>
+                    <div className="overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                      <Image
+                        src={src}
+                        alt={`${localized(project.title, locale)} ${index + 1}`}
+                        width={800}
+                        height={600}
+                        className="h-auto w-full object-cover"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
             </div>
 
             <ScrollReveal>
@@ -108,12 +114,6 @@ export default async function ProjectDetailPage({
                   {dict.portfolioPage.category}
                 </h3>
                 <dl className="space-y-4 text-sm">
-                  <div>
-                    <dt className="text-slate-500">{dict.portfolioPage.client}</dt>
-                    <dd className="font-semibold text-brand-dark dark:text-white">
-                      {localized(project.client, locale)}
-                    </dd>
-                  </div>
                   <div>
                     <dt className="text-slate-500">{dict.portfolioPage.category}</dt>
                     <dd className="font-semibold text-brand-dark dark:text-white">
@@ -152,7 +152,7 @@ export default async function ProjectDetailPage({
                   >
                     <div className="relative aspect-video overflow-hidden">
                       <Image
-                        src={rel.image}
+                        src={rel.images[0]}
                         alt={localized(rel.title, locale)}
                         fill
                         className="object-cover object-center transition-transform duration-500 group-hover:scale-105"

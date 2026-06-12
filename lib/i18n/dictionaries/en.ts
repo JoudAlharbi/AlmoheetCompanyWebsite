@@ -169,7 +169,7 @@ const en: Dictionary = {
   portfolioPage: {
     badge: "Our Work",
     title: "Our Portfolio",
-    subtitle: "Browse a selection of our diverse projects across creative fields.",
+    subtitle: "Real printing, branding, and advertising projects delivered by Al Moheet.",
     all: "All",
     challenge: "The Challenge",
     solution: "The Solution",
@@ -178,6 +178,9 @@ const en: Dictionary = {
     client: "Client",
     year: "Year",
     related: "Related Projects",
+    viewGallery: "View Gallery",
+    emptyCategory: "No projects in this category yet.",
+    gallery: "Photo Gallery",
   },
   clientsPage: {
     badge: "Our Clients",
