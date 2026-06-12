@@ -1,7 +1,9 @@
 export type StatItem = {
   value: number;
-  suffix: string;
+  prefix?: string;
+  suffix?: string;
   label: string;
+  desc: string;
 };
 
 export type TitleDescItem = {
@@ -148,6 +150,8 @@ export type Dictionary = {
     hours: string;
     mapTitle: string;
     viewMap: string;
+    mapDescription: string;
+    openInGoogleMaps: string;
   };
   footer: {
     about: string;

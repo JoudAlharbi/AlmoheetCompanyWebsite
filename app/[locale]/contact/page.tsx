@@ -1,9 +1,10 @@
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfo from "@/components/contact/ContactInfo";
+import LocationMapSection from "@/components/contact/LocationMapSection";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/AnimatedCounter";
-import { siteConfig, whatsappLink } from "@/lib/site";
+import { whatsappLink } from "@/lib/site";
 import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
 import { buildMetadata } from "@/lib/metadata";
@@ -85,27 +86,7 @@ export default async function ContactPage({
           </div>
 
           <ScrollReveal className="mt-16">
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="text-xl font-bold text-brand-dark dark:text-white">
-                {dict.contactPage.mapTitle}
-              </h2>
-              <Button href={siteConfig.mapUrl} external variant="secondary" size="sm">
-                {dict.contactPage.viewMap}
-              </Button>
-            </div>
-            <div className="overflow-hidden rounded-2xl border border-slate-200/80 shadow-soft dark:border-slate-800">
-              <iframe
-                src={siteConfig.mapEmbed}
-                width="100%"
-                height="420"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title={dict.contactPage.mapTitle}
-                className="w-full"
-              />
-            </div>
+            <LocationMapSection locale={locale} dict={dict} />
           </ScrollReveal>
         </div>
       </section>

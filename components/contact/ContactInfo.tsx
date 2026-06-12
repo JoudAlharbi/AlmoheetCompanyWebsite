@@ -181,15 +181,6 @@ export default function ContactInfo({
         </div>
       ))}
 
-      <Button
-        href={siteConfig.mapUrl}
-        external
-        variant="secondary"
-        className="w-full"
-      >
-        {icons.location}
-        {dict.contactPage.viewMap}
-      </Button>
     </div>
   );
 }

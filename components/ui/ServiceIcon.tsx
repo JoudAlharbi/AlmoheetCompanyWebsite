@@ -100,6 +100,41 @@ export default function ServiceIcon({ name, className }: ServiceIconProps) {
           <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
         </svg>
       );
+    case "sticker":
+      return (
+        <svg {...props}>
+          <path d="M7 3h7l7 7v11H7V3z" />
+          <path d="M14 3v7h7" />
+        </svg>
+      );
+    case "acrylic":
+      return (
+        <svg {...props}>
+          <rect x="3" y="5" width="18" height="14" rx="1" />
+          <path d="M8 19v2M16 19v2" />
+          <path d="M7 9h10M7 13h6" />
+        </svg>
+      );
+    case "cup":
+      return (
+        <svg {...props}>
+          <path d="M6 8h12v8a4 4 0 01-4 4h-4a4 4 0 01-4-4V8z" />
+          <path d="M18 10h1a2 2 0 012 2v1a2 2 0 01-2 2h-1" />
+        </svg>
+      );
+    case "apparel":
+      return (
+        <svg {...props}>
+          <path d="M8 4l4-2 4 2 4 3-2 2v11H6V9L4 7l4-3z" />
+        </svg>
+      );
+    case "exhibition":
+      return (
+        <svg {...props}>
+          <path d="M4 10h16v8H4z" />
+          <path d="M8 10V6h8v4M12 18v3" />
+        </svg>
+      );
     default:
       return (
         <svg {...props}>

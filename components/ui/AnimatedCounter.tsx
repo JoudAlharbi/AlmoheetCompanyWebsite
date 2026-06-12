@@ -5,6 +5,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type AnimatedCounterProps = {
   value: number;
+  prefix?: string;
   suffix?: string;
   duration?: number;
   className?: string;
@@ -12,6 +13,7 @@ type AnimatedCounterProps = {
 
 export default function AnimatedCounter({
   value,
+  prefix = "",
   suffix = "",
   duration = 2,
   className,
@@ -44,6 +46,7 @@ export default function AnimatedCounter({
 
   return (
     <span ref={ref} className={className}>
+      {prefix}
       {count}
       {suffix}
     </span>

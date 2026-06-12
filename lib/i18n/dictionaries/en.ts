@@ -43,12 +43,32 @@ const en: Dictionary = {
   stats: {
     title: "Numbers That Speak",
     subtitle:
-      "Years of creativity and commitment translated into tangible results for our clients.",
+      "Since 2010, we have built a strong track record in printing, advertising, and marketing.",
     items: [
-      { value: 12, suffix: "+", label: "Years of Experience" },
-      { value: 480, suffix: "+", label: "Projects Delivered" },
-      { value: 160, suffix: "+", label: "Happy Clients" },
-      { value: 24, suffix: "", label: "Integrated Services" },
+      {
+        value: 15,
+        prefix: "+",
+        label: "Years of Experience",
+        desc: "Since 2010, delivering professional printing and advertising solutions.",
+      },
+      {
+        value: 500,
+        prefix: "+",
+        label: "Orders & Projects Delivered",
+        desc: "Hundreds of projects and orders completed across sizes and industries.",
+      },
+      {
+        value: 250,
+        prefix: "+",
+        label: "Clients Served",
+        desc: "Long-term relationships with individuals and businesses alike.",
+      },
+      {
+        value: 12,
+        prefix: "+",
+        label: "Specialized Services",
+        desc: "A complete suite of printing, advertising, and marketing services.",
+      },
     ],
   },
   why: {
@@ -77,7 +97,7 @@ const en: Dictionary = {
   servicesOverview: {
     title: "Our Services",
     subtitle:
-      "A complete suite of creative and marketing services designed to elevate your brand.",
+      "Professional printing and advertising solutions — from stamps and shields to signage, promotional gifts, and exhibition setup.",
   },
   featured: {
     title: "Selected Projects",
@@ -194,6 +214,9 @@ const en: Dictionary = {
     hours: "Sat - Thu: 9 AM - 6 PM",
     mapTitle: "Find Us on the Map",
     viewMap: "View Location on Map",
+    mapDescription:
+      "Al Moheet Advertising Agency is located in Al Tadamun Al Arabi, Mishrifah, Jeddah. Visit us in person or contact us to schedule a meeting.",
+    openInGoogleMaps: "Open in Google Maps",
   },
   footer: {
     about:

@@ -9,11 +9,20 @@ export const siteConfig = {
   phoneHref: "tel:+966502534149",
   email: "Almohet26@gmail.com",
   mapUrl: "https://maps.app.goo.gl/Aa4AHF2nvNbKSQCy7?g_st=iw",
+  mapCoordinates: {
+    lat: 21.5810048,
+    lng: 39.223296,
+  },
+  mapPlaceId: "0x15c3d1361a84a46f:0x99a360f44d31891d",
   mapEmbed:
-    "https://www.google.com/maps?q=https%3A%2F%2Fmaps.app.goo.gl%2FAa4AHF2nvNbKSQCy7&hl=ar&z=16&output=embed",
+    "https://maps.google.com/maps?q=21.5810048,39.223296&hl=ar&z=16&output=embed",
   addressShort: {
-    ar: "جدة، المملكة العربية السعودية",
-    en: "Jeddah, Saudi Arabia",
+    ar: "حي التضامن العربي، Mishrifah، جدة 23336",
+    en: "Al Tadamun Al Arabi, Mishrifah, Jeddah 23336",
+  } as Localized,
+  addressFull: {
+    ar: "وكالة المحيط للدعاية والإعلان — حي التضامن العربي، Mishrifah، جدة",
+    en: "Al Moheet Advertising Agency — Al Tadamun Al Arabi, Mishrifah, Jeddah",
   } as Localized,
   social: {
     instagram: "https://instagram.com",

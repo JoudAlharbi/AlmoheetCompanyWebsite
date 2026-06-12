@@ -18,8 +18,8 @@ export default function ServicesOverview({ locale, dict }: ServicesOverviewProps
           title={dict.servicesOverview.title}
           subtitle={dict.servicesOverview.subtitle}
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {services.slice(0, 8).map((service) => (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          {services.map((service) => (
             <ServiceCard
               key={service.slug}
               service={service}

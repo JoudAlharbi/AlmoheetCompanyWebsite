@@ -18,31 +18,45 @@ export default function ServiceCard({
   ctaLabel,
   compact,
 }: ServiceCardProps) {
+  const title = localized(service.title, locale);
+  const summary = compact
+    ? localized(service.short, locale)
+    : localized(service.description, locale);
+
   return (
-    <ScrollReveal>
-      <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/40 md:p-8">
-        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue/10 to-brand-gold/10 text-brand-blue transition-transform duration-300 group-hover:scale-110 dark:from-brand-blue/20 dark:to-brand-gold/20">
+    <ScrollReveal className="h-full">
+      <article className="group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-blue/25 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/35 md:p-7">
+        <div className="mb-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue/10 to-brand-gold/10 text-brand-blue ring-1 ring-brand-blue/10 transition-all duration-300 group-hover:scale-105 group-hover:from-brand-blue/15 group-hover:to-brand-gold/15 group-hover:ring-brand-blue/20 dark:from-brand-blue/20 dark:to-brand-gold/10">
           <ServiceIcon name={service.icon} className="h-7 w-7" />
         </div>
-        <h3 className="mb-3 text-xl font-bold text-brand-dark dark:text-white">
-          {localized(service.title, locale)}
+
+        <h3 className="mb-2 text-lg font-bold leading-snug text-brand-dark dark:text-white md:text-xl">
+          {title}
         </h3>
-        <p className="mb-6 flex-1 text-slate-600 leading-relaxed dark:text-slate-400">
-          {compact
-            ? localized(service.short, locale)
-            : localized(service.description, locale)}
+
+        <p className="mb-5 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-[0.9375rem]">
+          {summary}
         </p>
+
         {ctaLabel && (
           <Button
             href={`/${locale}/contact?service=${service.slug}`}
             variant="outline"
             size="sm"
-            className="mt-auto w-fit"
+            className="mt-auto w-fit opacity-90 transition-opacity group-hover:opacity-100"
           >
             {ctaLabel}
           </Button>
         )}
-        <div className="pointer-events-none absolute -end-8 -top-8 h-24 w-24 rounded-full bg-brand-gold/5 transition-transform duration-500 group-hover:scale-150" />
+
+        <div
+          className="pointer-events-none absolute -end-10 -top-10 h-28 w-28 rounded-full bg-brand-gold/5 transition-transform duration-500 group-hover:scale-150"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-start scale-x-0 bg-gradient-to-r from-brand-blue to-brand-gold transition-transform duration-300 group-hover:scale-x-100"
+          aria-hidden
+        />
       </article>
     </ScrollReveal>
   );
