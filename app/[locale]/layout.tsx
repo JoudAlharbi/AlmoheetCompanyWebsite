@@ -6,22 +6,9 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { locales, localeDirection, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
 import { buildMetadata } from "@/lib/metadata";
-import { Tajawal, Inter } from "next/font/google";
+import { inter, tajawal } from "@/lib/fonts";
 import { notFound } from "next/navigation";
 import "../globals.css";
-
-const tajawal = Tajawal({
-  subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "700", "800", "900"],
-  variable: "--font-tajawal",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
