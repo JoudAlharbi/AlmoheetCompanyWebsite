@@ -137,6 +137,16 @@ export default function ServiceIcon({ name, className }: ServiceIconProps) {
           <path d="M8 4l4-2 4 2 4 3-2 2v11H6V9L4 7l4-3z" />
         </svg>
       );
+    case "forex":
+      return (
+        <svg {...props}>
+          <path d="M4 18V8l3.5 2v8L4 18z" />
+          <path d="M9.5 18V8l3.5 2v8l-3.5 2z" />
+          <path d="M15 18V8l3.5 2v8L15 18z" />
+          <path d="M3 19h18" />
+          <path d="M7 6h2M12 6h2M17 6h2" strokeLinecap="round" />
+        </svg>
+      );
     case "exhibition":
       return (
         <svg {...props}>

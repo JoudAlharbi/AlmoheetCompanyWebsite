@@ -43,19 +43,19 @@ const en: Dictionary = {
   stats: {
     title: "Numbers That Speak",
     subtitle:
-      "Since 2010, we have built a strong track record in printing, advertising, and marketing.",
+      "Since 2006, we have built a strong track record in printing, advertising, and marketing.",
     items: [
       {
-        value: 15,
+        value: 19,
         prefix: "+",
         label: "Years of Experience",
-        desc: "We deliver printing, advertising, and marketing solutions with experience dating back to 2010.",
+        desc: "We deliver printing, advertising, and marketing solutions with experience dating back to 2006.",
       },
       {
         value: 30000,
         prefix: "+",
         label: "Clients Served",
-        desc: "We are proud to have served thousands of clients — individuals, companies, and government entities — over more than 15 years.",
+        desc: "We are proud to have served thousands of clients — individuals, companies, and government entities — over more than 19 years.",
       },
       {
         value: 75000,
@@ -64,7 +64,7 @@ const en: Dictionary = {
         desc: "We have completed tens of thousands of printing, advertising, and marketing projects of all sizes and requirements.",
       },
       {
-        value: 13,
+        value: 14,
         prefix: "+",
         label: "Specialized Services",
         desc: "We offer a comprehensive suite of printing, design, advertising, and marketing services under one roof.",
@@ -125,7 +125,7 @@ const en: Dictionary = {
       "Al Muhait Advertising Agency is a full-service creative agency based in Jeddah. We help businesses build a strong visual identity and stand out in their markets through integrated creative and marketing solutions.",
     whoTitle: "Who We Are",
     whoDesc:
-      "Since our launch, we have believed that a strong brand starts with a clear idea and professional execution. We blend creativity and strategy to offer our clients a complete experience across design, printing, and digital marketing.",
+      "Established in 2006, we believe that a strong brand starts with a clear idea and professional execution. We blend creativity and strategy to offer our clients a complete experience across design, printing, and digital marketing.",
     visionTitle: "Our Vision",
     visionDesc:
       "To be the first choice for companies seeking excellence in advertising across the Kingdom and the region.",

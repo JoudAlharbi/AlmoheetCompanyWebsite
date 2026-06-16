@@ -166,6 +166,19 @@ export const services: Service[] = [
     },
   },
   {
+    slug: "forex-signage",
+    icon: "forex",
+    title: { ar: "الفوركس", en: "Forex Signage" },
+    short: {
+      ar: "حروف فوركس ولوحات إعلانية للاستخدام الداخلي والخارجي.",
+      en: "Forex letters and signage for indoor and outdoor use.",
+    },
+    description: {
+      ar: "تصميم وتنفيذ وتركيب حروف الفوركس واللوحات الإعلانية الاحترافية بمختلف الأحجام والاستخدامات الداخلية والخارجية.",
+      en: "Design, manufacturing, and installation of professional Forex letters and signage for indoor and outdoor applications.",
+    },
+  },
+  {
     slug: "integrated-advertising",
     icon: "marketing",
     title: { ar: "خدمات الدعاية والإعلان المتكاملة", en: "Integrated Advertising Services" },
