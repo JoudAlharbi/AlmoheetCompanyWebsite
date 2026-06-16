@@ -3,7 +3,6 @@ import type { Localized } from "../site";
 export type Service = {
   slug: string;
   icon: string;
-  image?: string;
   title: Localized;
   short: Localized;
   description: Localized;
@@ -104,7 +103,6 @@ export const services: Service[] = [
   {
     slug: "graphic-design",
     icon: "design",
-    image: "/services/graphic-design.jpg",
     title: { ar: "التصميم الجرافيكي", en: "Graphic Design" },
     short: {
       ar: "شعارات، هويات بصرية، مطبوعات، وإعلانات رقمية.",
