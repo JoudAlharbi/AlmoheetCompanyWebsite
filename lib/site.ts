@@ -21,6 +21,18 @@ export const siteConfig = {
     ar: "وكالة المحيط للدعاية والإعلان — حي العزيزية، شارع غرناطة، جدة",
     en: "Al Moheet Advertising Agency — Al Aziziyah District, Granada Street, Jeddah",
   } as Localized,
+  openingHours: {
+    dayOfWeek: [
+      "Saturday",
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+    ],
+    opens: "09:00",
+    closes: "23:00",
+  },
   social: {
     instagram: "https://instagram.com",
     twitter: "https://twitter.com",

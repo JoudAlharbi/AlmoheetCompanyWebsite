@@ -215,7 +215,8 @@ const en: Dictionary = {
     phoneLabel: "Phone",
     emailLabel: "Email",
     hoursLabel: "Working Hours",
-    hours: "Sat - Thu: 9 AM - 6 PM",
+    hoursWeekdays: "Saturday - Thursday: 9:00 AM - 11:00 PM",
+    hoursFriday: "Friday: Closed",
     mapTitle: "Find Us on the Map",
     viewMap: "View Location on Map",
     mapDescription:

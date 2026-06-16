@@ -2,6 +2,7 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import LoadingScreen from "@/components/layout/LoadingScreen";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { localeDirection, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
@@ -32,6 +33,7 @@ export default async function LocaleLayout({
       <body
         className={`${tajawal.variable} ${inter.variable} font-sans antialiased`}
       >
+        <LocalBusinessSchema locale={locale} />
         <ThemeProvider>
           <LoadingScreen label={dict.common.loading} locale={locale} />
           <Header locale={locale} dict={dict} />

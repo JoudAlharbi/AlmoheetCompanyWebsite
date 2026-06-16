@@ -214,7 +214,8 @@ const ar: Dictionary = {
     phoneLabel: "الهاتف",
     emailLabel: "البريد الإلكتروني",
     hoursLabel: "ساعات العمل",
-    hours: "السبت - الخميس: 9 ص - 6 م",
+    hoursWeekdays: "السبت - الخميس: 9:00 صباحًا - 11:00 مساءً",
+    hoursFriday: "الجمعة: مغلق",
     mapTitle: "موقعنا على الخريطة",
     viewMap: "عرض الموقع على الخريطة",
     mapDescription:

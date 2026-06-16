@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
+import BusinessHours from "@/components/ui/BusinessHours";
 import { mailtoLink, siteConfig } from "@/lib/site";
 import { cn, localized } from "@/lib/utils";
 import Button from "@/components/ui/Button";
@@ -28,6 +29,12 @@ const icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5H4.5a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
     </svg>
   ),
+  hours: (
+    <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" d="M12 7v5l3 2" />
+    </svg>
+  ),
 };
 
 export default function ContactInfo({
@@ -37,6 +44,10 @@ export default function ContactInfo({
   className,
 }: ContactInfoProps) {
   const address = localized(siteConfig.addressShort, locale);
+  const hoursProps = {
+    weekdays: dict.contactPage.hoursWeekdays,
+    friday: dict.contactPage.hoursFriday,
+  };
 
   if (variant === "footer") {
     return (
@@ -62,6 +73,15 @@ export default function ContactInfo({
             <span className="text-brand-gold">{icons.email}</span>
             <span>{siteConfig.email}</span>
           </a>
+        </li>
+        <li className="flex items-start gap-3">
+          <span className="mt-0.5 text-brand-gold">{icons.hours}</span>
+          <div>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-brand-gold/80">
+              {dict.contactPage.hoursLabel}
+            </p>
+            <BusinessHours {...hoursProps} variant="footer" />
+          </div>
         </li>
         <li>
           <a
@@ -98,6 +118,15 @@ export default function ContactInfo({
           <span className="text-brand-blue">{icons.email}</span>
           <span className="break-all">{siteConfig.email}</span>
         </a>
+        <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-900">
+          <div className="mb-2 flex items-center gap-3">
+            <span className="text-brand-blue">{icons.hours}</span>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+              {dict.contactPage.hoursLabel}
+            </p>
+          </div>
+          <BusinessHours {...hoursProps} variant="inline" className="ps-8" />
+        </div>
         <Button
           href={siteConfig.mapUrl}
           external
@@ -138,17 +167,6 @@ export default function ContactInfo({
           value: siteConfig.email,
           href: mailtoLink(),
         },
-        {
-          key: "hours",
-          icon: (
-            <svg className="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <circle cx="12" cy="12" r="9" />
-              <path strokeLinecap="round" d="M12 7v5l3 2" />
-            </svg>
-          ),
-          label: dict.contactPage.hoursLabel,
-          value: dict.contactPage.hours,
-        },
       ].map((item) => (
         <div
           key={item.key}
@@ -161,26 +179,31 @@ export default function ContactInfo({
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               {item.label}
             </p>
-            {item.href ? (
-              <a
-                href={item.href}
-                {...(item.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="mt-1 block text-base font-semibold text-brand-dark transition-colors hover:text-brand-blue dark:text-white"
-                dir={item.ltr ? "ltr" : undefined}
-              >
-                {item.value}
-              </a>
-            ) : (
-              <p className="mt-1 text-base font-semibold text-brand-dark dark:text-white">
-                {item.value}
-              </p>
-            )}
+            <a
+              href={item.href}
+              {...(item.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className="mt-1 block text-base font-semibold text-brand-dark transition-colors hover:text-brand-blue dark:text-white"
+              dir={item.ltr ? "ltr" : undefined}
+            >
+              {item.value}
+            </a>
           </div>
         </div>
       ))}
 
+      <div className="flex gap-4 rounded-xl border border-slate-200/80 bg-white p-4 transition-shadow hover:shadow-soft dark:border-slate-700 dark:bg-slate-900/80">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-blue/10 text-brand-blue dark:bg-brand-blue/20">
+          {icons.hours}
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            {dict.contactPage.hoursLabel}
+          </p>
+          <BusinessHours {...hoursProps} />
+        </div>
+      </div>
     </div>
   );
 }
