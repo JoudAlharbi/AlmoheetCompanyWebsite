@@ -39,8 +39,8 @@ export default async function HomePage({
       <WhyChooseUs dict={dict} />
       <ServicesOverview locale={locale} dict={dict} />
       <FeaturedProjects locale={locale} dict={dict} />
-      <TrustedClients dict={dict} />
       <TestimonialsSection locale={locale} dict={dict} />
+      <TrustedClients dict={dict} />
       <ContactCTA locale={locale} dict={dict} />
     </>
   );

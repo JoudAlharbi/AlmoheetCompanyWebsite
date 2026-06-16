@@ -104,8 +104,9 @@ const en: Dictionary = {
     subtitle: "A glimpse of the work we are proud of across various fields.",
   },
   clientsSection: {
-    title: "Clients Who Trust Us",
-    subtitle: "Partnerships we cherish with leading brands.",
+    title: "Our Clients",
+    subtitle: "Partnerships we cherish with leading brands across the Kingdom.",
+    logoAlt: "Our client logo",
   },
   testimonials: {
     title: "What Our Clients Say",

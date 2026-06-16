@@ -71,6 +71,7 @@ export type Dictionary = {
   clientsSection: {
     title: string;
     subtitle: string;
+    logoAlt: string;
   };
   testimonials: {
     title: string;

@@ -1,24 +1,17 @@
 import type { Localized } from "../site";
 
 export type Client = {
-  name: string;
-  short: string;
+  id: string;
+  logo: string;
 };
 
-export const clients: Client[] = [
-  { name: "Nahdi", short: "Nahdi" },
-  { name: "Bank Aljazira", short: "Aljazira" },
-  { name: "MBL", short: "MBL" },
-  { name: "AMS Steel", short: "AMS" },
-  { name: "Saudia", short: "Saudia" },
-  { name: "Almarai", short: "Almarai" },
-  { name: "stc", short: "stc" },
-  { name: "Jeddah Chamber", short: "JC" },
-  { name: "Red Sea", short: "Red Sea" },
-  { name: "Tamimi", short: "Tamimi" },
-  { name: "Panda", short: "Panda" },
-  { name: "Mobily", short: "Mobily" },
-];
+export const clients: Client[] = Array.from({ length: 26 }, (_, i) => {
+  const num = String(i + 1).padStart(2, "0");
+  return {
+    id: `partner-${num}`,
+    logo: `/clients/partner-${num}.webp`,
+  };
+});
 
 export type Testimonial = {
   name: Localized;
