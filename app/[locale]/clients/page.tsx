@@ -1,14 +1,10 @@
 import ClientsPageContent from "@/components/pages/ClientsPageContent";
-import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
+import { resolveLocale } from "@/lib/i18n/resolveLocale";
 import { buildMetadata } from "@/lib/metadata";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+export async function generateMetadata({ params }: PageProps<"/[locale]/clients">) {
+  const locale = await resolveLocale(params);
   const dict = getDictionary(locale);
   return buildMetadata({
     locale,
@@ -20,10 +16,8 @@ export async function generateMetadata({
 
 export default async function ClientsPage({
   params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+}: PageProps<"/[locale]/clients">) {
+  const locale = await resolveLocale(params);
   const dict = getDictionary(locale);
 
   return <ClientsPageContent locale={locale} dict={dict} />;

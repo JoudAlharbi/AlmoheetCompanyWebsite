@@ -1,8 +1,8 @@
 import Button from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/AnimatedCounter";
 import { portfolioCategories, projects } from "@/lib/data/portfolio";
-import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
+import { resolveLocaleParams } from "@/lib/i18n/resolveLocale";
 import { buildMetadata } from "@/lib/metadata";
 import { localized } from "@/lib/utils";
 import Image from "next/image";
@@ -20,10 +20,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}) {
-  const { locale, slug } = await params;
+}: PageProps<"/[locale]/portfolio/[slug]">) {
+  const { locale, slug } = await resolveLocaleParams(params);
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
 
@@ -39,10 +37,8 @@ export async function generateMetadata({
 
 export default async function ProjectDetailPage({
   params,
-}: {
-  params: Promise<{ locale: Locale; slug: string }>;
-}) {
-  const { locale, slug } = await params;
+}: PageProps<"/[locale]/portfolio/[slug]">) {
+  const { locale, slug } = await resolveLocaleParams(params);
   const dict = getDictionary(locale);
   const project = projects.find((p) => p.slug === slug);
 

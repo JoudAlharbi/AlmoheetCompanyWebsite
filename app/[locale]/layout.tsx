@@ -3,39 +3,27 @@ import Header from "@/components/layout/Header";
 import LoadingScreen from "@/components/layout/LoadingScreen";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { locales, localeDirection, type Locale } from "@/lib/i18n/config";
+import { localeDirection, locales } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
+import { resolveLocale } from "@/lib/i18n/resolveLocale";
 import { buildMetadata } from "@/lib/metadata";
 import { inter, tajawal } from "@/lib/fonts";
-import { notFound } from "next/navigation";
 import "../globals.css";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+export async function generateMetadata({ params }: LayoutProps<"/[locale]">) {
+  const locale = await resolveLocale(params);
   return buildMetadata({ locale });
 }
 
 export default async function LocaleLayout({
   children,
   params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
-
-  if (!locales.includes(locale)) {
-    notFound();
-  }
-
+}: LayoutProps<"/[locale]">) {
+  const locale = await resolveLocale(params);
   const dict = getDictionary(locale);
   const dir = localeDirection[locale];
 

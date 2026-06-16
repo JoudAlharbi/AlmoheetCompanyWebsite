@@ -6,16 +6,12 @@ import StatsSection from "@/components/sections/StatsSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import TrustedClients from "@/components/sections/TrustedClients";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import type { Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/getDictionary";
+import { resolveLocale } from "@/lib/i18n/resolveLocale";
 import { buildMetadata } from "@/lib/metadata";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+export async function generateMetadata({ params }: PageProps<"/[locale]">) {
+  const locale = await resolveLocale(params);
   const dict = getDictionary(locale);
   return buildMetadata({
     locale,
@@ -24,12 +20,8 @@ export async function generateMetadata({
   });
 }
 
-export default async function HomePage({
-  params,
-}: {
-  params: Promise<{ locale: Locale }>;
-}) {
-  const { locale } = await params;
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
+  const locale = await resolveLocale(params);
   const dict = getDictionary(locale);
 
   return (
