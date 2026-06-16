@@ -1,6 +1,6 @@
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
-import { siteConfig } from "@/lib/site";
+import { getMapEmbed, siteConfig } from "@/lib/site";
 import { localized } from "@/lib/utils";
 
 type LocationMapSectionProps = {
@@ -22,7 +22,7 @@ export default function LocationMapSection({ locale, dict }: LocationMapSectionP
       <div className="grid lg:grid-cols-5">
         <div className="relative min-h-[280px] lg:col-span-3 lg:min-h-[440px]">
           <iframe
-            src={siteConfig.mapEmbed}
+            src={getMapEmbed(locale)}
             width="100%"
             height="100%"
             style={{ border: 0 }}

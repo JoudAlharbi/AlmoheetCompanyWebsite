@@ -10,19 +10,16 @@ export const siteConfig = {
   email: "Almohet26@gmail.com",
   mapUrl: "https://maps.app.goo.gl/Aa4AHF2nvNbKSQCy7?g_st=iw",
   mapCoordinates: {
-    lat: 21.5810048,
-    lng: 39.223296,
+    lat: 21.5476478,
+    lng: 39.2056505,
   },
-  mapPlaceId: "0x15c3d1361a84a46f:0x99a360f44d31891d",
-  mapEmbed:
-    "https://maps.google.com/maps?q=21.5810048,39.223296&hl=ar&z=16&output=embed",
   addressShort: {
-    ar: "حي التضامن العربي، Mishrifah، جدة 23336",
-    en: "Al Tadamun Al Arabi, Mishrifah, Jeddah 23336",
+    ar: "حي العزيزية، شارع غرناطة",
+    en: "Al Aziziyah District, Granada Street",
   } as Localized,
   addressFull: {
-    ar: "وكالة المحيط للدعاية والإعلان — حي التضامن العربي، Mishrifah، جدة",
-    en: "Al Moheet Advertising Agency — Al Tadamun Al Arabi, Mishrifah, Jeddah",
+    ar: "وكالة المحيط للدعاية والإعلان — حي العزيزية، شارع غرناطة، جدة",
+    en: "Al Moheet Advertising Agency — Al Aziziyah District, Granada Street, Jeddah",
   } as Localized,
   social: {
     instagram: "https://instagram.com",
@@ -31,6 +28,11 @@ export const siteConfig = {
     behance: "https://behance.net",
   },
 } as const;
+
+export function getMapEmbed(locale: Locale) {
+  const { lat, lng } = siteConfig.mapCoordinates;
+  return `https://maps.google.com/maps?q=${lat},${lng}&hl=${locale}&z=16&output=embed`;
+}
 
 export function whatsappLink(message?: string) {
   const base = `https://wa.me/${siteConfig.whatsapp}`;

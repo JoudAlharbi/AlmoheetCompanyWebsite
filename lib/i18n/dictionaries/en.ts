@@ -5,7 +5,7 @@ const en: Dictionary = {
     name: "Al Muhait Advertising Agency",
     shortName: "Al Muhait",
     tagline: "Punctual delivery, uncompromising quality",
-    location: "Jeddah, Saudi Arabia",
+    location: "Al Aziziyah District, Granada Street, Jeddah",
   },
   nav: {
     home: "Home",
@@ -211,7 +211,7 @@ const en: Dictionary = {
     success: "Your message has been received! We'll get back to you soon.",
     infoTitle: "Contact Information",
     addressLabel: "Address",
-    address: "Jeddah, Saudi Arabia",
+    address: "Al Aziziyah District, Granada Street",
     phoneLabel: "Phone",
     emailLabel: "Email",
     hoursLabel: "Working Hours",
@@ -219,7 +219,7 @@ const en: Dictionary = {
     mapTitle: "Find Us on the Map",
     viewMap: "View Location on Map",
     mapDescription:
-      "Al Moheet Advertising Agency is located in Al Tadamun Al Arabi, Mishrifah, Jeddah. Visit us in person or contact us to schedule a meeting.",
+      "Al Moheet Advertising Agency is located in Al Aziziyah District on Granada Street, Jeddah. Visit us in person or contact us to schedule a meeting.",
     openInGoogleMaps: "Open in Google Maps",
   },
   footer: {
