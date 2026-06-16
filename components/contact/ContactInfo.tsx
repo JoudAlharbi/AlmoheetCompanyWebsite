@@ -44,10 +44,7 @@ export default function ContactInfo({
   className,
 }: ContactInfoProps) {
   const address = localized(siteConfig.addressShort, locale);
-  const hoursProps = {
-    weekdays: dict.contactPage.hoursWeekdays,
-    friday: dict.contactPage.hoursFriday,
-  };
+  const hoursWeekdays = dict.contactPage.hoursWeekdays;
 
   if (variant === "footer") {
     return (
@@ -80,7 +77,7 @@ export default function ContactInfo({
             <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-brand-gold/80">
               {dict.contactPage.hoursLabel}
             </p>
-            <BusinessHours {...hoursProps} variant="footer" />
+            <BusinessHours weekdays={hoursWeekdays} variant="footer" />
           </div>
         </li>
         <li>
@@ -125,7 +122,7 @@ export default function ContactInfo({
               {dict.contactPage.hoursLabel}
             </p>
           </div>
-          <BusinessHours {...hoursProps} variant="inline" className="ps-8" />
+          <BusinessHours weekdays={hoursWeekdays} variant="inline" className="ps-8" />
         </div>
         <Button
           href={siteConfig.mapUrl}
@@ -201,7 +198,7 @@ export default function ContactInfo({
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
             {dict.contactPage.hoursLabel}
           </p>
-          <BusinessHours {...hoursProps} />
+          <BusinessHours weekdays={hoursWeekdays} />
         </div>
       </div>
     </div>

@@ -152,7 +152,6 @@ export type Dictionary = {
     emailLabel: string;
     hoursLabel: string;
     hoursWeekdays: string;
-    hoursFriday: string;
     mapTitle: string;
     viewMap: string;
     mapDescription: string;

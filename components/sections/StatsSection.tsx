@@ -3,12 +3,14 @@
 import AnimatedCounter, { ScrollReveal } from "@/components/ui/AnimatedCounter";
 import SectionHeading from "@/components/ui/SectionHeading";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
+import type { Locale } from "@/lib/i18n/config";
 
 type StatsSectionProps = {
   dict: Dictionary;
+  locale: Locale;
 };
 
-export default function StatsSection({ dict }: StatsSectionProps) {
+export default function StatsSection({ dict, locale }: StatsSectionProps) {
   return (
     <section className="section-padding relative overflow-hidden bg-brand-dark text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(37,99,235,0.15),transparent_55%)]" />
@@ -31,7 +33,8 @@ export default function StatsSection({ dict }: StatsSectionProps) {
                     value={item.value}
                     prefix={item.prefix ?? ""}
                     suffix={item.suffix ?? ""}
-                    duration={2.2}
+                    duration={item.value >= 1000 ? 2.8 : 2.2}
+                    locale={locale}
                   />
                 </p>
                 <h3 className="mt-5 text-lg font-bold leading-snug text-white md:text-xl">
