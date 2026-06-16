@@ -43,19 +43,19 @@ const en: Dictionary = {
   stats: {
     title: "Numbers That Speak",
     subtitle:
-      "Since 2006, we have built a strong track record in printing, advertising, and marketing.",
+      "Over 20 years since 2006, we have built a strong track record in printing, advertising, and marketing.",
     items: [
       {
-        value: 19,
+        value: 20,
         prefix: "+",
         label: "Years of Experience",
-        desc: "We deliver printing, advertising, and marketing solutions with experience dating back to 2006.",
+        desc: "Providing printing, advertising, and branding solutions with over 20 years of experience since 2006.",
       },
       {
         value: 30000,
         prefix: "+",
         label: "Clients Served",
-        desc: "We are proud to have served thousands of clients — individuals, companies, and government entities — over more than 19 years.",
+        desc: "We are proud to have served thousands of clients — individuals, companies, and government entities — over more than 20 years.",
       },
       {
         value: 75000,
@@ -125,7 +125,7 @@ const en: Dictionary = {
       "Al Muhait Advertising Agency is a full-service creative agency based in Jeddah. We help businesses build a strong visual identity and stand out in their markets through integrated creative and marketing solutions.",
     whoTitle: "Who We Are",
     whoDesc:
-      "Established in 2006, we believe that a strong brand starts with a clear idea and professional execution. We blend creativity and strategy to offer our clients a complete experience across design, printing, and digital marketing.",
+      "Established in 2006, with over 20 years of experience, we believe that a strong brand starts with a clear idea and professional execution. We blend creativity and strategy to offer our clients a complete experience across design, printing, and digital marketing.",
     visionTitle: "Our Vision",
     visionDesc:
       "To be the first choice for companies seeking excellence in advertising across the Kingdom and the region.",
