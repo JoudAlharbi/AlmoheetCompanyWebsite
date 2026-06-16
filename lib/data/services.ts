@@ -3,6 +3,7 @@ import type { Localized } from "../site";
 export type Service = {
   slug: string;
   icon: string;
+  image?: string;
   title: Localized;
   short: Localized;
   description: Localized;
@@ -101,16 +102,30 @@ export const services: Service[] = [
     },
   },
   {
-    slug: "cup-printing",
-    icon: "cup",
-    title: { ar: "الطباعة على الأكواب", en: "Cup Printing" },
+    slug: "graphic-design",
+    icon: "design",
+    image: "/services/graphic-design.jpg",
+    title: { ar: "التصميم الجرافيكي", en: "Graphic Design" },
     short: {
-      ar: "أكواب مطبوعة بشعارك للمناسبات والهدايا.",
-      en: "Branded cups for events and corporate gifts.",
+      ar: "شعارات، هويات بصرية، مطبوعات، وإعلانات رقمية.",
+      en: "Logos, branding, print materials, and digital ads.",
     },
     description: {
-      ar: "نطبع على الأكواب بجودة عالية ومقاومة للاستخدام اليومي، مثالية للفعاليات والهدايا.",
-      en: "We print on cups and mugs with durable, high-quality output — ideal for events and promotional gifts.",
+      ar: "نقدم خدمات تصميم احترافية تشمل الشعارات والهويات البصرية والمطبوعات والإعلانات الرقمية ومحتوى وسائل التواصل الاجتماعي.",
+      en: "Professional design services including logos, branding, print materials, digital advertisements, and social media content.",
+    },
+  },
+  {
+    slug: "cup-printing",
+    icon: "cup",
+    title: { ar: "طباعة الأكواب والصناديق", en: "Cup & Packaging Box Printing" },
+    short: {
+      ar: "أكواب وصناديق مطبوعة بشعارك للمناسبات والهدايا.",
+      en: "Branded cups and packaging boxes for events and gifts.",
+    },
+    description: {
+      ar: "نطبع على الأكواب والصناديق بجودة عالية ومقاومة للاستخدام اليومي، مثالية للفعاليات والهدايا والتغليف.",
+      en: "We print on cups and packaging boxes with durable, high-quality output — ideal for events, gifts, and product packaging.",
     },
   },
   {

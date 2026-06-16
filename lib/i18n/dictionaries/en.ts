@@ -64,7 +64,7 @@ const en: Dictionary = {
         desc: "We have completed tens of thousands of printing, advertising, and marketing projects of all sizes and requirements.",
       },
       {
-        value: 20,
+        value: 13,
         prefix: "+",
         label: "Specialized Services",
         desc: "We offer a comprehensive suite of printing, design, advertising, and marketing services under one roof.",
