@@ -149,7 +149,14 @@ export const projects: Project[] = [
       ar: "بوث معرض متكامل لوكالة المحيط",
       en: "Al Moheet Integrated Exhibition Booth",
     },
-    images: [img("acrylic-exhibition-wall.jpg")],
+    images: [
+      img("acrylic-exhibition-wall.jpg"),
+      img("Citylight_Mockup_1.jpg"),
+      img("Free_Banner_Mockup_4.jpg"),
+      img("Free_Billboard_Bann er_Mockup_2.jpg"),
+      img("Free_Roll-up _Mockup_1.jpg"),
+      img("Free_Ro ll-up_Mockup_1.jpg"),
+    ],
     year: "2024",
   },
   {
@@ -199,7 +206,11 @@ export const projects: Project[] = [
       ar: "كوب سيراميك مطبوع لوكالة المحيط",
       en: "Al Moheet Branded Ceramic Mug",
     },
-    images: [img("product-coffee-mug.jpg")],
+    images: [
+      img("product-coffee-mug.jpg"),
+      img("Coffee_Brand_Mockup_1.jpg"),
+      img("The_Mixed_Coffee_Cups_Mockup_2.jpg"),
+    ],
     year: "2024",
   },
   {
@@ -263,7 +274,11 @@ export const projects: Project[] = [
       ar: "علبة مطوية مطبوعة لوكالة المحيط",
       en: "Al Moheet Branded Folding Gift Box",
     },
-    images: [img("product-folding-box.jpg")],
+    images: [
+      img("product-folding-box.jpg"),
+      img("Free_Pouch_Mockup_1.jpg"),
+      img("Large_Honey_Jar_Mockup_3.jpg"),
+    ],
     year: "2024",
   },
   {
@@ -293,7 +308,7 @@ export const projects: Project[] = [
       ar: "ميدالية مفاتيح مطبوعة",
       en: "Branded Metal Keychain",
     },
-    images: [img("promo-keychain.jpg")],
+    images: [img("promo-keychain.jpg"), img("Free_Plastic_ID_Mockup_3.jpg")],
     year: "2024",
   },
   {
@@ -303,7 +318,7 @@ export const projects: Project[] = [
       ar: "حقيبة قماشية مطبوعة لوكالة المحيط",
       en: "Al Moheet Branded Canvas Tote Bag",
     },
-    images: [img("promo-tote-bag.jpg")],
+    images: [img("promo-tote-bag.jpg"), img("Bag_Mockup.jpg")],
     year: "2024",
   },
   {
@@ -333,7 +348,15 @@ export const projects: Project[] = [
       ar: "قرطاسية مكتبية لوكالة المحيط",
       en: "Al Moheet Corporate Stationery Set",
     },
-    images: [img("identity-stationery.jpg")],
+    images: [
+      img("identity-stationery.jpg"),
+      img("PHOTO-2026-06-21-00-05-08.jpg"),
+      img("PHOTO-2026-06-21-00-05-08 2.jpg"),
+      img("PHOTO-2026-06-21-00-11-26.jpg"),
+      img("A4_Borchure_Mockup_8.jpg"),
+      img("Poster_Mockup_1.jpg"),
+      img("Vertcial_Spiral_Book_Mockup_2.jpg"),
+    ],
     year: "2024",
   },
   {
