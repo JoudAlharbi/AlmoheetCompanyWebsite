@@ -1,18 +1,21 @@
 "use client";
 
 import PortfolioLightbox from "@/components/portfolio/PortfolioLightbox";
+import PortfolioProjectCard from "@/components/portfolio/PortfolioProjectCard";
+import { ScrollReveal } from "@/components/ui/AnimatedCounter";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
 import {
   buildGalleryImages,
+  featuredPortfolioSlugs,
   portfolioCategories,
   projects,
+  resolveFeaturedProjects,
   type Project,
 } from "@/lib/data/portfolio";
 import { localized } from "@/lib/utils";
-import Image from "next/image";
-import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState } from "react";
 
 type PortfolioGalleryProps = {
   locale: Locale;
@@ -23,11 +26,18 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
   const [activeCategory, setActiveCategory] = useState("all");
   const [lightboxId, setLightboxId] = useState<string | null>(null);
 
+  const featuredProjects = useMemo(() => resolveFeaturedProjects(), []);
+
   const filtered: Project[] = (
     activeCategory === "all"
       ? projects
       : projects.filter((p) => p.category === activeCategory)
   ).filter((p) => p.images.length > 0);
+
+  const gridProjects =
+    activeCategory === "all"
+      ? filtered.filter((p) => !featuredPortfolioSlugs.has(p.slug))
+      : filtered;
 
   const galleryImages = useMemo(() => buildGalleryImages(), []);
   const filteredGalleryImages = useMemo(
@@ -42,13 +52,15 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
     setLightboxId(`${project.slug}-${imageIndex}`);
   };
 
+  const showFeatured = activeCategory === "all" && featuredProjects.length > 0;
+
   return (
     <>
-      <div className="mb-10 flex flex-wrap justify-center gap-2">
+      <div className="mb-10 flex flex-wrap justify-center gap-2 md:mb-12">
         <button
           type="button"
           onClick={() => setActiveCategory("all")}
-          className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
+          className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
             activeCategory === "all"
               ? "bg-brand-blue text-white shadow-glow"
               : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
@@ -61,7 +73,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
             key={cat.slug}
             type="button"
             onClick={() => setActiveCategory(cat.slug)}
-            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
+            className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
               activeCategory === cat.slug
                 ? "bg-brand-blue text-white shadow-glow"
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
@@ -72,66 +84,99 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
         ))}
       </div>
 
-      <motion.div layout className="columns-1 gap-5 sm:columns-2 lg:columns-3">
+      <AnimatePresence mode="wait">
+        {showFeatured && (
+          <motion.section
+            key="featured-section"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.4 }}
+            className="mb-14 md:mb-20"
+          >
+            <div className="mb-8 md:mb-10">
+              <h2 className="text-2xl font-bold text-brand-dark dark:text-white md:text-3xl lg:text-4xl">
+                {dict.featured.title}
+              </h2>
+              <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-400 md:text-lg">
+                {dict.featured.subtitle}
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:gap-6 lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
+              {featuredProjects.map(({ project, cover, imageIndex }, i) => {
+                const category = portfolioCategories.find(
+                  (c) => c.slug === project.category,
+                );
+
+                return (
+                  <ScrollReveal
+                    key={project.slug}
+                    delay={i * 0.1}
+                    className={i === 0 ? "lg:row-span-2" : "h-full"}
+                  >
+                    <PortfolioProjectCard
+                      project={project}
+                      cover={cover}
+                      locale={locale}
+                      dict={dict}
+                      category={category}
+                      variant="featured"
+                      featuredLayout={i === 0 ? "hero" : "standard"}
+                      onOpen={() => openLightbox(project, imageIndex)}
+                    />
+                  </ScrollReveal>
+                );
+              })}
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
+      {showFeatured && gridProjects.length > 0 && (
+        <div className="mb-10 flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700" />
+          <span className="shrink-0 text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+            {dict.portfolioPage.all}
+          </span>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent dark:via-slate-700" />
+        </div>
+      )}
+
+      <motion.div
+        layout
+        className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8"
+      >
         <AnimatePresence mode="popLayout">
-          {filtered.map((project, i) => {
+          {gridProjects.map((project, i) => {
             const cover = project.images[0];
             if (!cover) return null;
-            const title = localized(project.title, locale);
-            const category = portfolioCategories.find((c) => c.slug === project.category);
+
+            const category = portfolioCategories.find(
+              (c) => c.slug === project.category,
+            );
 
             return (
-              <motion.article
+              <motion.div
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, delay: i * 0.03 }}
-                className="mb-5 break-inside-avoid"
+                transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.4) }}
               >
-                <button
-                  type="button"
-                  onClick={() => openLightbox(project)}
-                  className="group w-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-start shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/30 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/40"
-                >
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={cover}
-                      alt={title}
-                      width={800}
-                      height={600}
-                      className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-brand-dark/20 to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />
-                    {project.images.length > 1 && (
-                      <span className="absolute end-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-brand-dark backdrop-blur-sm">
-                        {project.images.length} {locale === "ar" ? "صور" : "photos"}
-                      </span>
-                    )}
-                    <div className="absolute inset-x-0 bottom-0 p-5">
-                      {category && (
-                        <span className="mb-2 inline-block rounded-full bg-brand-gold/20 px-3 py-1 text-xs font-semibold text-brand-gold">
-                          {localized(category.label, locale)}
-                        </span>
-                      )}
-                      <h3 className="text-lg font-bold text-white md:text-xl">{title}</h3>
-                      {project.summary && (
-                        <p className="mt-1 line-clamp-2 text-sm text-white/75">
-                          {localized(project.summary, locale)}
-                        </p>
-                      )}
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      <span className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-brand-dark shadow-lg">
-                        {dict.portfolioPage.viewGallery}
-                      </span>
-                    </div>
-                  </div>
-                </button>
-              </motion.article>
+                <ScrollReveal delay={Math.min(i * 0.05, 0.35)}>
+                  <PortfolioProjectCard
+                    project={project}
+                    cover={cover}
+                    locale={locale}
+                    dict={dict}
+                    category={category}
+                    variant="default"
+                    onOpen={() => openLightbox(project, 0)}
+                  />
+                </ScrollReveal>
+              </motion.div>
             );
           })}
         </AnimatePresence>

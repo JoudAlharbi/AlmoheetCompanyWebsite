@@ -391,6 +391,40 @@ export const projects: Project[] = [
   },
 ];
 
+export const featuredPortfolioItems = [
+  { slug: "secret-brand-printed-packaging", coverFile: "promo-gift-box.jpg" },
+  { slug: "almoheet-branded-mug", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
+  { slug: "almoheet-exhibition-booth", coverFile: "Citylight_Mockup_1.jpg" },
+] as const;
+
+export const featuredPortfolioSlugs = new Set<string>(
+  featuredPortfolioItems.map((item) => item.slug),
+);
+
+export function getProjectCoverImage(project: Project, coverFile?: string): string {
+  if (coverFile) {
+    const match = project.images.find((src) => src.endsWith(`/${coverFile}`));
+    if (match) return match;
+  }
+  return project.images[0];
+}
+
+export function resolveFeaturedProjects(): Array<{
+  project: Project;
+  cover: string;
+  imageIndex: number;
+}> {
+  return featuredPortfolioItems
+    .map(({ slug, coverFile }) => {
+      const project = projects.find((p) => p.slug === slug);
+      if (!project || project.images.length === 0) return null;
+      const cover = getProjectCoverImage(project, coverFile);
+      const imageIndex = Math.max(0, project.images.indexOf(cover));
+      return { project, cover, imageIndex };
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null);
+}
+
 export type GalleryImage = {
   id: string;
   projectSlug: string;

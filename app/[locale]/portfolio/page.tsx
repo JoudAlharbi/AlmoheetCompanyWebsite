@@ -35,7 +35,7 @@ export default async function PortfolioPage({
         </div>
       </section>
 
-      <section className="section-padding pt-0">
+      <section className="section-padding bg-slate-50/40 pt-0 dark:bg-slate-950/20">
         <div className="container">
           <PortfolioGallery locale={locale} dict={dict} />
         </div>
