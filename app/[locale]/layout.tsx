@@ -1,7 +1,6 @@
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import LoadingScreen from "@/components/layout/LoadingScreen";
-import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { localeDirection, locales } from "@/lib/i18n/config";
@@ -39,7 +38,6 @@ export default async function LocaleLayout({
           <Header locale={locale} dict={dict} />
           <main>{children}</main>
           <Footer locale={locale} dict={dict} />
-          <WhatsAppButton label={dict.common.chatWhatsapp} />
         </ThemeProvider>
       </body>
     </html>
