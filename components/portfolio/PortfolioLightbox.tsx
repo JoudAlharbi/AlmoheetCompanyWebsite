@@ -83,6 +83,11 @@ export default function PortfolioLightbox({
             </div>
             <p className="shrink-0 text-sm tabular-nums text-white/70">
               {activeIndex + 1} / {images.length}
+              {active.imageCount > 1 && (
+                <span className="ms-2 text-white/50">
+                  · {active.imageIndex + 1}/{active.imageCount}
+                </span>
+              )}
             </p>
             <button
               type="button"

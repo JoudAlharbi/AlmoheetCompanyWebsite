@@ -7,14 +7,9 @@ export type PortfolioCategory = {
 
 export const portfolioCategories: PortfolioCategory[] = [
   { slug: "stamps", label: { ar: "الأختام", en: "Stamps" } },
-  { slug: "shields", label: { ar: "الدروع والتكريم", en: "Shields & Awards" } },
   {
     slug: "billboards",
     label: { ar: "البنرات واللوحات الإعلانية", en: "Banners & Signage" },
-  },
-  {
-    slug: "acrylic-light",
-    label: { ar: "الأكريليك واللوحات المضيئة", en: "Acrylic & Light Boxes" },
   },
   {
     slug: "stickers",
@@ -28,7 +23,6 @@ export const portfolioCategories: PortfolioCategory[] = [
     slug: "packaging",
     label: { ar: "الطباعة على العبوات والتغليف", en: "Packaging & Containers" },
   },
-  { slug: "apparel", label: { ar: "الطباعة على الملابس", en: "Apparel Printing" } },
   {
     slug: "identity",
     label: { ar: "الهوية البصرية والعلامات التجارية", en: "Visual Identity & Branding" },
@@ -51,7 +45,18 @@ export type Project = {
   year: string;
 };
 
-export const projects: Project[] = [
+/** Featured covers — single source of truth (order + cover image per project). */
+export const featuredPortfolioItems = [
+  { slug: "secret-brand-printed-packaging", coverFile: "promo-gift-box.jpg" },
+  { slug: "almoheet-branded-mug", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
+  { slug: "almoheet-exhibition-booth", coverFile: "Citylight_Mockup_1.jpg" },
+] as const;
+
+export const featuredPortfolioSlugs = new Set<string>(
+  featuredPortfolioItems.map((item) => item.slug),
+);
+
+const rawProjects: Project[] = [
   {
     slug: "automatic-stamps-catalog",
     category: "stamps",
@@ -119,7 +124,7 @@ export const projects: Project[] = [
       ar: "ستاند X-Banner لأفراح الحمادي",
       en: "Al-Hammadi Wedding X-Stand Banner",
     },
-    images: [img("Free_Ro ll-up_Mockup_1.jpg")],
+    images: [img("free-roll-up-mockup-1.jpg")],
     year: "2024",
   },
   {
@@ -150,12 +155,11 @@ export const projects: Project[] = [
       en: "Al Moheet Integrated Exhibition Booth",
     },
     images: [
-      img("acrylic-exhibition-wall.jpg"),
       img("Citylight_Mockup_1.jpg"),
+      img("acrylic-exhibition-wall.jpg"),
       img("Free_Banner_Mockup_4.jpg"),
-      img("Free_Billboard_Bann er_Mockup_2.jpg"),
-      img("Free_Roll-up _Mockup_1.jpg"),
-      img("Free_Ro ll-up_Mockup_1.jpg"),
+      img("free-billboard-banner-mockup-2.jpg"),
+      img("free-roll-up-mockup-2.jpg"),
     ],
     year: "2024",
   },
@@ -207,9 +211,9 @@ export const projects: Project[] = [
       en: "Al Moheet Branded Ceramic Mug",
     },
     images: [
+      img("The_Mixed_Coffee_Cups_Mockup_2.jpg"),
       img("product-coffee-mug.jpg"),
       img("Coffee_Brand_Mockup_1.jpg"),
-      img("The_Mixed_Coffee_Cups_Mockup_2.jpg"),
     ],
     year: "2024",
   },
@@ -351,7 +355,7 @@ export const projects: Project[] = [
     images: [
       img("identity-stationery.jpg"),
       img("PHOTO-2026-06-21-00-05-08.jpg"),
-      img("PHOTO-2026-06-21-00-05-08 2.jpg"),
+      img("photo-2026-06-21-00-05-08-2.jpg"),
       img("PHOTO-2026-06-21-00-11-26.jpg"),
       img("A4_Borchure_Mockup_8.jpg"),
       img("Poster_Mockup_1.jpg"),
@@ -391,15 +395,15 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredPortfolioItems = [
-  { slug: "secret-brand-printed-packaging", coverFile: "promo-gift-box.jpg" },
-  { slug: "almoheet-branded-mug", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
-  { slug: "almoheet-exhibition-booth", coverFile: "Citylight_Mockup_1.jpg" },
-] as const;
+function uniqueImages(images: string[]): string[] {
+  return [...new Set(images)];
+}
 
-export const featuredPortfolioSlugs = new Set<string>(
-  featuredPortfolioItems.map((item) => item.slug),
-);
+/** Normalize projects: dedupe images within each project. */
+export const projects: Project[] = rawProjects.map((project) => ({
+  ...project,
+  images: uniqueImages(project.images),
+}));
 
 export function getProjectCoverImage(project: Project, coverFile?: string): string {
   if (coverFile) {
@@ -425,6 +429,28 @@ export function resolveFeaturedProjects(): Array<{
     .filter((item): item is NonNullable<typeof item> => item !== null);
 }
 
+/** Grid order: featured first (by config), then remaining projects in definition order. */
+export function getGridProjects(options?: {
+  category?: string;
+  excludeFeatured?: boolean;
+}): Project[] {
+  const category = options?.category ?? "all";
+  const excludeFeatured = options?.excludeFeatured ?? category === "all";
+
+  let list =
+    category === "all"
+      ? projects
+      : projects.filter((p) => p.category === category);
+
+  list = list.filter((p) => p.images.length > 0);
+
+  if (excludeFeatured) {
+    list = list.filter((p) => !featuredPortfolioSlugs.has(p.slug));
+  }
+
+  return list;
+}
+
 export type GalleryImage = {
   id: string;
   projectSlug: string;
@@ -436,23 +462,49 @@ export type GalleryImage = {
   imageCount: number;
 };
 
-export function buildGalleryImages(): GalleryImage[] {
-  return projects
+export function buildGalleryImages(sourceProjects: Project[] = projects): GalleryImage[] {
+  const seenSrc = new Set<string>();
+
+  return sourceProjects
     .filter((project) => project.images.length > 0)
     .flatMap((project) =>
-      project.images.map((src, imageIndex) => ({
-        id: `${project.slug}-${imageIndex}`,
-        projectSlug: project.slug,
-        category: project.category,
-        title: project.title,
-        summary: project.summary,
-        src,
-        imageIndex,
-        imageCount: project.images.length,
-      })),
+      project.images
+        .map((src, imageIndex) => ({
+          id: `${project.slug}-${imageIndex}`,
+          projectSlug: project.slug,
+          category: project.category,
+          title: project.title,
+          summary: project.summary,
+          src,
+          imageIndex,
+          imageCount: project.images.length,
+        }))
+        .filter((entry) => {
+          if (seenSrc.has(entry.src)) return false;
+          seenSrc.add(entry.src);
+          return true;
+        }),
     );
 }
 
-export function getProjectBySlug(slug: string) {
+export function findProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
+}
+
+export function getActivePortfolioCategories(): PortfolioCategory[] {
+  const used = new Set(projects.filter((p) => p.images.length > 0).map((p) => p.category));
+  return portfolioCategories.filter((c) => used.has(c.slug));
+}
+
+export function resolveGalleryImageId(
+  galleryImages: GalleryImage[],
+  project: Project,
+  imageIndex: number,
+): string | null {
+  const src = project.images[imageIndex];
+  if (!src) return null;
+  const match =
+    galleryImages.find((g) => g.src === src && g.projectSlug === project.slug) ??
+    galleryImages.find((g) => g.src === src);
+  return match?.id ?? null;
 }

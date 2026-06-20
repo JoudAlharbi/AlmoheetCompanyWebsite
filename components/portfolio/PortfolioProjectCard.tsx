@@ -5,6 +5,7 @@ import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
 import { localized } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 type PortfolioProjectCardProps = {
   project: Project;
@@ -14,7 +15,8 @@ type PortfolioProjectCardProps = {
   category?: PortfolioCategory;
   variant?: "featured" | "default";
   featuredLayout?: "hero" | "standard";
-  onOpen: () => void;
+  href?: string;
+  onOpen?: () => void;
 };
 
 export default function PortfolioProjectCard({
@@ -25,6 +27,7 @@ export default function PortfolioProjectCard({
   category,
   variant = "default",
   featuredLayout = "standard",
+  href,
   onOpen,
 }: PortfolioProjectCardProps) {
   const title = localized(project.title, locale);
@@ -37,16 +40,14 @@ export default function PortfolioProjectCard({
         ? "min-h-[260px] sm:min-h-[300px] lg:min-h-[268px]"
         : "aspect-[4/3]";
 
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className={`group relative flex w-full overflow-hidden rounded-2xl border text-start transition-all duration-500 hover:scale-[1.02] hover:shadow-glow ${
-        isFeatured
-          ? "h-full border-brand-blue/20 bg-gradient-to-b from-slate-900 to-brand-dark shadow-lg shadow-brand-dark/20 hover:border-brand-blue/40 dark:border-brand-blue/25"
-          : "border-slate-200/80 bg-white shadow-sm hover:border-brand-blue/30 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/40"
-      }`}
-    >
+  const className = `group relative flex w-full overflow-hidden rounded-2xl border text-start transition-all duration-500 hover:scale-[1.02] hover:shadow-glow ${
+    isFeatured
+      ? "h-full border-brand-blue/20 bg-gradient-to-b from-slate-900 to-brand-dark shadow-lg shadow-brand-dark/20 hover:border-brand-blue/40 dark:border-brand-blue/25"
+      : "border-slate-200/80 bg-white shadow-sm hover:border-brand-blue/30 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/40"
+  }`;
+
+  const content = (
+    <>
       <div className={`relative w-full overflow-hidden ${heightClass}`}>
         <Image
           src={cover}
@@ -108,10 +109,24 @@ export default function PortfolioProjectCard({
         </div>
         <div className="absolute inset-0 flex items-center justify-center bg-brand-dark/0 opacity-0 transition-all duration-300 group-hover:bg-brand-dark/20 group-hover:opacity-100">
           <span className="translate-y-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark shadow-lg transition-transform duration-300 group-hover:translate-y-0">
-            {dict.portfolioPage.viewGallery}
+            {href ? dict.common.viewProject : dict.portfolioPage.viewGallery}
           </span>
         </div>
       </div>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={className}>
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onOpen} className={className}>
+      {content}
     </button>
   );
 }

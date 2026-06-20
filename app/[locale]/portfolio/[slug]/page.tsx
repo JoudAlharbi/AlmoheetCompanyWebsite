@@ -1,6 +1,12 @@
 import Button from "@/components/ui/Button";
 import { ScrollReveal } from "@/components/ui/AnimatedCounter";
-import { portfolioCategories, projects } from "@/lib/data/portfolio";
+import {
+  featuredPortfolioItems,
+  findProjectBySlug,
+  getProjectCoverImage,
+  portfolioCategories,
+  projects,
+} from "@/lib/data/portfolio";
 import { getDictionary } from "@/lib/i18n/getDictionary";
 import { resolveLocaleParams } from "@/lib/i18n/resolveLocale";
 import { buildMetadata } from "@/lib/metadata";
@@ -40,9 +46,15 @@ export default async function ProjectDetailPage({
 }: PageProps<"/[locale]/portfolio/[slug]">) {
   const { locale, slug } = await resolveLocaleParams(params);
   const dict = getDictionary(locale);
-  const project = projects.find((p) => p.slug === slug);
+  const project = findProjectBySlug(slug);
 
-  if (!project) notFound();
+  if (!project || project.images.length === 0) notFound();
+
+  const featuredItem = featuredPortfolioItems.find((item) => item.slug === slug);
+  const heroImage = getProjectCoverImage(
+    project,
+    featuredItem?.coverFile,
+  );
 
   const category = portfolioCategories.find((c) => c.slug === project.category);
   const related = projects
@@ -54,7 +66,7 @@ export default async function ProjectDetailPage({
       <section className="relative pt-32">
         <div className="relative aspect-[21/9] overflow-hidden md:aspect-[21/8]">
           <Image
-            src={project.images[0]}
+            src={heroImage}
             alt={localized(project.title, locale)}
             fill
             className="object-cover object-center"

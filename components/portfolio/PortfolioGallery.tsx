@@ -2,15 +2,15 @@
 
 import PortfolioLightbox from "@/components/portfolio/PortfolioLightbox";
 import PortfolioProjectCard from "@/components/portfolio/PortfolioProjectCard";
-import { ScrollReveal } from "@/components/ui/AnimatedCounter";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
 import {
   buildGalleryImages,
-  featuredPortfolioSlugs,
+  getActivePortfolioCategories,
+  getGridProjects,
   portfolioCategories,
-  projects,
   resolveFeaturedProjects,
+  resolveGalleryImageId,
   type Project,
 } from "@/lib/data/portfolio";
 import { localized } from "@/lib/utils";
@@ -27,17 +27,16 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
   const [lightboxId, setLightboxId] = useState<string | null>(null);
 
   const featuredProjects = useMemo(() => resolveFeaturedProjects(), []);
+  const activeCategories = useMemo(() => getActivePortfolioCategories(), []);
 
-  const filtered: Project[] = (
-    activeCategory === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeCategory)
-  ).filter((p) => p.images.length > 0);
-
-  const gridProjects =
-    activeCategory === "all"
-      ? filtered.filter((p) => !featuredPortfolioSlugs.has(p.slug))
-      : filtered;
+  const gridProjects = useMemo(
+    () =>
+      getGridProjects({
+        category: activeCategory,
+        excludeFeatured: activeCategory === "all",
+      }),
+    [activeCategory],
+  );
 
   const galleryImages = useMemo(() => buildGalleryImages(), []);
   const filteredGalleryImages = useMemo(
@@ -49,10 +48,12 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
   );
 
   const openLightbox = (project: Project, imageIndex = 0) => {
-    setLightboxId(`${project.slug}-${imageIndex}`);
+    const id = resolveGalleryImageId(filteredGalleryImages, project, imageIndex);
+    if (id) setLightboxId(id);
   };
 
   const showFeatured = activeCategory === "all" && featuredProjects.length > 0;
+  const hasResults = showFeatured || gridProjects.length > 0;
 
   return (
     <>
@@ -68,7 +69,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
         >
           {dict.portfolioPage.all}
         </button>
-        {portfolioCategories.map((cat) => (
+        {activeCategories.map((cat) => (
           <button
             key={cat.slug}
             type="button"
@@ -88,10 +89,10 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
         {showFeatured && (
           <motion.section
             key="featured-section"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35 }}
             className="mb-14 md:mb-20"
           >
             <div className="mb-8 md:mb-10">
@@ -110,9 +111,8 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
                 );
 
                 return (
-                  <ScrollReveal
+                  <div
                     key={project.slug}
-                    delay={i * 0.1}
                     className={i === 0 ? "lg:row-span-2" : "h-full"}
                   >
                     <PortfolioProjectCard
@@ -125,7 +125,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
                       featuredLayout={i === 0 ? "hero" : "standard"}
                       onOpen={() => openLightbox(project, imageIndex)}
                     />
-                  </ScrollReveal>
+                  </div>
                 );
               })}
             </div>
@@ -160,29 +160,27 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
               <motion.div
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, y: 28 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.4, delay: Math.min(i * 0.04, 0.4) }}
+                transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.32) }}
               >
-                <ScrollReveal delay={Math.min(i * 0.05, 0.35)}>
-                  <PortfolioProjectCard
-                    project={project}
-                    cover={cover}
-                    locale={locale}
-                    dict={dict}
-                    category={category}
-                    variant="default"
-                    onOpen={() => openLightbox(project, 0)}
-                  />
-                </ScrollReveal>
+                <PortfolioProjectCard
+                  project={project}
+                  cover={cover}
+                  locale={locale}
+                  dict={dict}
+                  category={category}
+                  variant="default"
+                  onOpen={() => openLightbox(project, 0)}
+                />
               </motion.div>
             );
           })}
         </AnimatePresence>
       </motion.div>
 
-      {filtered.length === 0 && (
+      {!hasResults && (
         <p className="py-16 text-center text-slate-500 dark:text-slate-400">
           {dict.portfolioPage.emptyCategory}
         </p>
