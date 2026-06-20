@@ -23,10 +23,11 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
   const [activeCategory, setActiveCategory] = useState("all");
   const [lightboxId, setLightboxId] = useState<string | null>(null);
 
-  const filtered: Project[] =
+  const filtered: Project[] = (
     activeCategory === "all"
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      : projects.filter((p) => p.category === activeCategory)
+  ).filter((p) => p.images.length > 0);
 
   const galleryImages = useMemo(() => buildGalleryImages(), []);
   const filteredGalleryImages = useMemo(
@@ -75,6 +76,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
         <AnimatePresence mode="popLayout">
           {filtered.map((project, i) => {
             const cover = project.images[0];
+            if (!cover) return null;
             const title = localized(project.title, locale);
             const category = portfolioCategories.find((c) => c.slug === project.category);
 

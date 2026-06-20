@@ -119,7 +119,7 @@ export const projects: Project[] = [
       ar: "ستاند X-Banner لأفراح الحمادي",
       en: "Al-Hammadi Wedding X-Stand Banner",
     },
-    images: [img("billboard-x-stand.jpg")],
+    images: [img("Free_Ro ll-up_Mockup_1.jpg")],
     year: "2024",
   },
   {
@@ -166,7 +166,7 @@ export const projects: Project[] = [
       ar: "ستاندات شبكية لشركة مدار الأصلي",
       en: "Madar Al-Asli Grid Display Stands",
     },
-    images: [img("acrylic-display-stand.jpg")],
+    images: [img("apparel-tshirt.jpg")],
     year: "2024",
   },
   {
@@ -176,7 +176,7 @@ export const projects: Project[] = [
       ar: "خلفية منحنية وطاولة لشركة مدار الأصلي",
       en: "Madar Al-Asli Curved Backdrop & Counter",
     },
-    images: [img("apparel-tshirt.jpg")],
+    images: [img("Mockup_TSB_1.jpg")],
     year: "2024",
   },
   {
@@ -366,7 +366,7 @@ export const projects: Project[] = [
       ar: "مطبوعات مركز غلامور توتش للتزيين النسائي",
       en: "Glamour Touch Beauty Salon Print Collateral",
     },
-    images: [img("billboard-curved-poster.jpg"), img("identity-flyer-dl.jpg")],
+    images: [img("identity-flyer-dl.jpg")],
     year: "2024",
   },
   {
@@ -403,18 +403,20 @@ export type GalleryImage = {
 };
 
 export function buildGalleryImages(): GalleryImage[] {
-  return projects.flatMap((project) =>
-    project.images.map((src, imageIndex) => ({
-      id: `${project.slug}-${imageIndex}`,
-      projectSlug: project.slug,
-      category: project.category,
-      title: project.title,
-      summary: project.summary,
-      src,
-      imageIndex,
-      imageCount: project.images.length,
-    })),
-  );
+  return projects
+    .filter((project) => project.images.length > 0)
+    .flatMap((project) =>
+      project.images.map((src, imageIndex) => ({
+        id: `${project.slug}-${imageIndex}`,
+        projectSlug: project.slug,
+        category: project.category,
+        title: project.title,
+        summary: project.summary,
+        src,
+        imageIndex,
+        imageCount: project.images.length,
+      })),
+    );
 }
 
 export function getProjectBySlug(slug: string) {
