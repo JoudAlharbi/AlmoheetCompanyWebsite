@@ -1,5 +1,6 @@
 import ClientLogoGrid from "@/components/ui/ClientLogoGrid";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { getClientLogos } from "@/lib/data/clientLogos";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 
 type TrustedClientsProps = {
@@ -7,6 +8,8 @@ type TrustedClientsProps = {
 };
 
 export default function TrustedClients({ dict }: TrustedClientsProps) {
+  const logos = getClientLogos();
+
   return (
     <section className="section-padding bg-slate-50 dark:bg-slate-900/30">
       <div className="container">
@@ -14,7 +17,7 @@ export default function TrustedClients({ dict }: TrustedClientsProps) {
           title={dict.clientsSection.title}
           subtitle={dict.clientsSection.subtitle}
         />
-        <ClientLogoGrid logoAlt={dict.clientsSection.logoAlt} />
+        <ClientLogoGrid logos={logos} logoAlt={dict.clientsSection.logoAlt} />
       </div>
     </section>
   );

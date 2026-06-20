@@ -1,18 +1,5 @@
 import type { Localized } from "../site";
 
-export type Client = {
-  id: string;
-  logo: string;
-};
-
-export const clients: Client[] = Array.from({ length: 26 }, (_, i) => {
-  const num = String(i + 1).padStart(2, "0");
-  return {
-    id: `partner-${num}`,
-    logo: `/clients/partner-${num}.webp`,
-  };
-});
-
 export type Testimonial = {
   name: Localized;
   role: Localized;

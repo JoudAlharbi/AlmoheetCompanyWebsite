@@ -12,11 +12,13 @@ import { localized } from "@/lib/utils";
 type ClientsPageContentProps = {
   locale: Locale;
   dict: Dictionary;
+  clientLogos: string[];
 };
 
 export default function ClientsPageContent({
   locale,
   dict,
+  clientLogos,
 }: ClientsPageContentProps) {
   return (
     <>
@@ -37,6 +39,7 @@ export default function ClientsPageContent({
             {dict.clientsPage.logosTitle}
           </h2>
           <ClientLogoGrid
+            logos={clientLogos}
             logoAlt={dict.clientsSection.logoAlt}
             cardHeight="md"
           />
