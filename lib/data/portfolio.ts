@@ -48,7 +48,7 @@ export type Project = {
 /** Featured covers — single source of truth (order + cover image per project). */
 export const featuredPortfolioItems = [
   { slug: "secret-brand-printed-packaging", coverFile: "promo-gift-box.jpg" },
-  { slug: "almoheet-branded-mug", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
+  { slug: "owl-cafe-branded-cups", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
   { slug: "almoheet-exhibition-booth", coverFile: "Citylight_Mockup_1.jpg" },
 ] as const;
 
@@ -164,16 +164,6 @@ const rawProjects: Project[] = [
     year: "2024",
   },
   {
-    slug: "madar-grid-display-stands",
-    category: "exhibitions",
-    title: {
-      ar: "ستاندات شبكية لشركة مدار الأصلي",
-      en: "Madar Al-Asli Grid Display Stands",
-    },
-    images: [img("apparel-tshirt.jpg")],
-    year: "2024",
-  },
-  {
     slug: "madar-auto-exhibition-popup",
     category: "exhibitions",
     title: {
@@ -210,11 +200,27 @@ const rawProjects: Project[] = [
       ar: "كوب سيراميك مطبوع لوكالة المحيط",
       en: "Al Moheet Branded Ceramic Mug",
     },
-    images: [
-      img("The_Mixed_Coffee_Cups_Mockup_2.jpg"),
-      img("product-coffee-mug.jpg"),
-      img("Coffee_Brand_Mockup_1.jpg"),
-    ],
+    images: [img("product-coffee-mug.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "owl-cafe-branded-cups",
+    category: "product-printing",
+    title: {
+      ar: "أكواب مطبوعة لبومة كافيه",
+      en: "Owl Cafe Branded Paper Cups",
+    },
+    images: [img("The_Mixed_Coffee_Cups_Mockup_2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "sultans-coffee-brand-identity",
+    category: "identity",
+    title: {
+      ar: "هوية بصرية لقهوة السلطان",
+      en: "Sultan's Coffee Brand Identity",
+    },
+    images: [img("Coffee_Brand_Mockup_1.jpg")],
     year: "2024",
   },
   {
@@ -463,28 +469,22 @@ export type GalleryImage = {
 };
 
 export function buildGalleryImages(sourceProjects: Project[] = projects): GalleryImage[] {
-  const seenSrc = new Set<string>();
-
   return sourceProjects
     .filter((project) => project.images.length > 0)
-    .flatMap((project) =>
-      project.images
-        .map((src, imageIndex) => ({
-          id: `${project.slug}-${imageIndex}`,
-          projectSlug: project.slug,
-          category: project.category,
-          title: project.title,
-          summary: project.summary,
-          src,
-          imageIndex,
-          imageCount: project.images.length,
-        }))
-        .filter((entry) => {
-          if (seenSrc.has(entry.src)) return false;
-          seenSrc.add(entry.src);
-          return true;
-        }),
-    );
+    .flatMap((project) => buildProjectGalleryImages(project));
+}
+
+export function buildProjectGalleryImages(project: Project): GalleryImage[] {
+  return project.images.map((src, imageIndex) => ({
+    id: `${project.slug}-${imageIndex}`,
+    projectSlug: project.slug,
+    category: project.category,
+    title: project.title,
+    summary: project.summary,
+    src,
+    imageIndex,
+    imageCount: project.images.length,
+  }));
 }
 
 export function findProjectBySlug(slug: string): Project | undefined {
@@ -501,10 +501,9 @@ export function resolveGalleryImageId(
   project: Project,
   imageIndex: number,
 ): string | null {
+  const id = `${project.slug}-${imageIndex}`;
+  if (galleryImages.some((g) => g.id === id)) return id;
   const src = project.images[imageIndex];
   if (!src) return null;
-  const match =
-    galleryImages.find((g) => g.src === src && g.projectSlug === project.slug) ??
-    galleryImages.find((g) => g.src === src);
-  return match?.id ?? null;
+  return galleryImages.find((g) => g.src === src && g.projectSlug === project.slug)?.id ?? null;
 }

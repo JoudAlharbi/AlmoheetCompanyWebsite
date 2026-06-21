@@ -5,12 +5,12 @@ import PortfolioProjectCard from "@/components/portfolio/PortfolioProjectCard";
 import type { Dictionary } from "@/lib/i18n/getDictionary";
 import type { Locale } from "@/lib/i18n/config";
 import {
-  buildGalleryImages,
+  buildProjectGalleryImages,
   getActivePortfolioCategories,
   getGridProjects,
   portfolioCategories,
   resolveFeaturedProjects,
-  resolveGalleryImageId,
+  type GalleryImage,
   type Project,
 } from "@/lib/data/portfolio";
 import { localized } from "@/lib/utils";
@@ -25,6 +25,7 @@ type PortfolioGalleryProps = {
 export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [lightboxId, setLightboxId] = useState<string | null>(null);
+  const [lightboxImages, setLightboxImages] = useState<GalleryImage[]>([]);
 
   const featuredProjects = useMemo(() => resolveFeaturedProjects(), []);
   const activeCategories = useMemo(() => getActivePortfolioCategories(), []);
@@ -38,18 +39,15 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
     [activeCategory],
   );
 
-  const galleryImages = useMemo(() => buildGalleryImages(), []);
-  const filteredGalleryImages = useMemo(
-    () =>
-      activeCategory === "all"
-        ? galleryImages
-        : galleryImages.filter((img) => img.category === activeCategory),
-    [activeCategory, galleryImages],
-  );
-
   const openLightbox = (project: Project, imageIndex = 0) => {
-    const id = resolveGalleryImageId(filteredGalleryImages, project, imageIndex);
-    if (id) setLightboxId(id);
+    const images = buildProjectGalleryImages(project);
+    setLightboxImages(images);
+    setLightboxId(`${project.slug}-${imageIndex}`);
+  };
+
+  const closeLightbox = () => {
+    setLightboxId(null);
+    setLightboxImages([]);
   };
 
   const showFeatured = activeCategory === "all" && featuredProjects.length > 0;
@@ -188,9 +186,9 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
 
       <PortfolioLightbox
         locale={locale}
-        images={filteredGalleryImages.length ? filteredGalleryImages : galleryImages}
+        images={lightboxImages}
         activeId={lightboxId}
-        onClose={() => setLightboxId(null)}
+        onClose={closeLightbox}
         onNavigate={setLightboxId}
       />
     </>
