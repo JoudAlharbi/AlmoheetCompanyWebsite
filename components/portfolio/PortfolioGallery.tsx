@@ -121,7 +121,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
                       category={category}
                       variant="featured"
                       featuredLayout={i === 0 ? "hero" : "standard"}
-                      onOpen={() => openLightbox(project, imageIndex)}
+                      onOpen={(index) => openLightbox(project, index ?? 0)}
                     />
                   </div>
                 );
@@ -170,7 +170,7 @@ export default function PortfolioGallery({ locale, dict }: PortfolioGalleryProps
                   dict={dict}
                   category={category}
                   variant="default"
-                  onOpen={() => openLightbox(project, 0)}
+                  onOpen={(index) => openLightbox(project, index ?? 0)}
                 />
               </motion.div>
             );

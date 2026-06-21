@@ -16,7 +16,7 @@ type PortfolioProjectCardProps = {
   variant?: "featured" | "default";
   featuredLayout?: "hero" | "standard";
   href?: string;
-  onOpen?: () => void;
+  onOpen?: (imageIndex?: number) => void;
 };
 
 export default function PortfolioProjectCard({
@@ -32,6 +32,7 @@ export default function PortfolioProjectCard({
 }: PortfolioProjectCardProps) {
   const title = localized(project.title, locale);
   const isFeatured = variant === "featured";
+  const hasMultiple = project.images.length > 1;
 
   const heightClass =
     isFeatured && featuredLayout === "hero"
@@ -40,93 +41,131 @@ export default function PortfolioProjectCard({
         ? "min-h-[260px] sm:min-h-[300px] lg:min-h-[268px]"
         : "aspect-[4/3]";
 
-  const className = `group relative flex w-full overflow-hidden rounded-2xl border text-start transition-all duration-500 hover:scale-[1.02] hover:shadow-glow ${
+  const shellClass = `group relative flex w-full flex-col overflow-hidden rounded-2xl border text-start transition-all duration-500 hover:scale-[1.02] hover:shadow-glow ${
     isFeatured
       ? "h-full border-brand-blue/20 bg-gradient-to-b from-slate-900 to-brand-dark shadow-lg shadow-brand-dark/20 hover:border-brand-blue/40 dark:border-brand-blue/25"
       : "border-slate-200/80 bg-white shadow-sm hover:border-brand-blue/30 hover:shadow-soft dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-brand-blue/40"
   }`;
 
-  const content = (
-    <>
-      <div className={`relative w-full overflow-hidden ${heightClass}`}>
-        <Image
-          src={cover}
-          alt={title}
-          fill
-          className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
-          loading="lazy"
-          sizes={
-            isFeatured
-              ? featuredLayout === "hero"
-                ? "(max-width: 1024px) 100vw, 50vw"
-                : "(max-width: 1024px) 100vw, 40vw"
-              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          }
-        />
-        <div
-          className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-500 ${
-            isFeatured
-              ? "from-brand-dark via-brand-dark/50 to-brand-dark/10 opacity-90 group-hover:opacity-100"
-              : "from-brand-dark/90 via-brand-dark/30 to-transparent opacity-85 group-hover:opacity-100"
-          }`}
-        />
-        {isFeatured && (
-          <span className="absolute start-4 top-4 rounded-full bg-brand-gold/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand-dark shadow-md">
-            {locale === "ar" ? "مميز" : "Featured"}
+  const hero = (
+    <div className={`relative w-full overflow-hidden ${heightClass}`}>
+      <Image
+        src={cover}
+        alt={title}
+        fill
+        className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+        loading="lazy"
+        sizes={
+          isFeatured
+            ? featuredLayout === "hero"
+              ? "(max-width: 1024px) 100vw, 50vw"
+              : "(max-width: 1024px) 100vw, 40vw"
+            : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        }
+      />
+      <div
+        className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-500 ${
+          isFeatured
+            ? "from-brand-dark via-brand-dark/50 to-brand-dark/10 opacity-90 group-hover:opacity-100"
+            : "from-brand-dark/90 via-brand-dark/30 to-transparent opacity-85 group-hover:opacity-100"
+        }`}
+      />
+      {isFeatured && (
+        <span className="absolute start-4 top-4 rounded-full bg-brand-gold/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-brand-dark shadow-md">
+          {locale === "ar" ? "مميز" : "Featured"}
+        </span>
+      )}
+      {hasMultiple && (
+        <span className="absolute end-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-brand-dark backdrop-blur-sm">
+          {project.images.length} {locale === "ar" ? "صور" : "photos"}
+        </span>
+      )}
+      <div
+        className={`absolute inset-x-0 bottom-0 ${
+          isFeatured ? "p-6 md:p-8" : "p-5 md:p-6"
+        }`}
+      >
+        {category && (
+          <span className="mb-2 inline-block rounded-full bg-brand-gold/20 px-3 py-1 text-xs font-semibold text-brand-gold ring-1 ring-brand-gold/20">
+            {localized(category.label, locale)}
           </span>
         )}
-        {project.images.length > 1 && (
-          <span className="absolute end-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold text-brand-dark backdrop-blur-sm">
-            {project.images.length} {locale === "ar" ? "صور" : "photos"}
-          </span>
-        )}
-        <div
-          className={`absolute inset-x-0 bottom-0 ${
-            isFeatured ? "p-6 md:p-8" : "p-5 md:p-6"
+        <h3
+          className={`font-bold leading-snug text-white ${
+            isFeatured && featuredLayout === "hero"
+              ? "text-xl md:text-2xl lg:text-3xl"
+              : isFeatured
+                ? "text-lg md:text-xl"
+                : "text-lg md:text-xl"
           }`}
         >
-          {category && (
-            <span className="mb-2 inline-block rounded-full bg-brand-gold/20 px-3 py-1 text-xs font-semibold text-brand-gold ring-1 ring-brand-gold/20">
-              {localized(category.label, locale)}
-            </span>
-          )}
-          <h3
-            className={`font-bold leading-snug text-white ${
-              isFeatured && featuredLayout === "hero"
-                ? "text-xl md:text-2xl lg:text-3xl"
-                : isFeatured
-                  ? "text-lg md:text-xl"
-                  : "text-lg md:text-xl"
-            }`}
-          >
-            {title}
-          </h3>
-          {project.summary && (
-            <p className="mt-2 line-clamp-2 text-sm text-white/75 md:text-base">
-              {localized(project.summary, locale)}
-            </p>
-          )}
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center bg-brand-dark/0 opacity-0 transition-all duration-300 group-hover:bg-brand-dark/20 group-hover:opacity-100">
-          <span className="translate-y-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark shadow-lg transition-transform duration-300 group-hover:translate-y-0">
-            {href ? dict.common.viewProject : dict.portfolioPage.viewGallery}
-          </span>
-        </div>
+          {title}
+        </h3>
+        {project.summary && (
+          <p className="mt-2 line-clamp-2 text-sm text-white/75 md:text-base">
+            {localized(project.summary, locale)}
+          </p>
+        )}
       </div>
-    </>
+      <div className="absolute inset-0 flex items-center justify-center bg-brand-dark/0 opacity-0 transition-all duration-300 group-hover:bg-brand-dark/20 group-hover:opacity-100">
+        <span className="translate-y-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-dark shadow-lg transition-transform duration-300 group-hover:translate-y-0">
+          {href ? dict.common.viewProject : dict.portfolioPage.viewGallery}
+        </span>
+      </div>
+    </div>
+  );
+
+  const thumbnails = hasMultiple && onOpen && (
+    <div
+      className={`flex gap-1.5 overflow-x-auto p-2 ${
+        isFeatured ? "bg-brand-dark/80" : "bg-slate-100 dark:bg-slate-900/80"
+      }`}
+      role="list"
+      aria-label={locale === "ar" ? "صور المشروع" : "Project photos"}
+    >
+      {project.images.map((src, index) => (
+        <button
+          key={src}
+          type="button"
+          role="listitem"
+          onClick={(e) => {
+            e.stopPropagation();
+            onOpen(index);
+          }}
+          className={`relative h-14 w-14 shrink-0 overflow-hidden rounded-lg ring-2 transition-all hover:scale-105 ${
+            src === cover
+              ? "ring-brand-gold"
+              : "ring-transparent hover:ring-brand-blue/50"
+          }`}
+          aria-label={`${title} ${index + 1}`}
+        >
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="56px"
+            loading="lazy"
+          />
+        </button>
+      ))}
+    </div>
   );
 
   if (href) {
     return (
-      <Link href={href} className={className}>
-        {content}
+      <Link href={href} className={shellClass}>
+        {hero}
       </Link>
     );
   }
 
   return (
-    <button type="button" onClick={onOpen} className={className}>
-      {content}
-    </button>
+    <div className={shellClass}>
+      <button type="button" onClick={() => onOpen?.(0)} className="block w-full text-start">
+        {hero}
+      </button>
+      {thumbnails}
+    </div>
   );
 }
