@@ -47,9 +47,9 @@ export type Project = {
 
 /** Featured covers — single source of truth (order + cover image per project). */
 export const featuredPortfolioItems = [
-  { slug: "secret-brand-printed-packaging", coverFile: "promo-gift-box.jpg" },
+  { slug: "secret-brand-gift-box", coverFile: "promo-gift-box.jpg" },
   { slug: "owl-cafe-branded-cups", coverFile: "The_Mixed_Coffee_Cups_Mockup_2.jpg" },
-  { slug: "almoheet-exhibition-booth", coverFile: "Citylight_Mockup_1.jpg" },
+  { slug: "juice-menu-citylight-display", coverFile: "Citylight_Mockup_1.jpg" },
 ] as const;
 
 export const featuredPortfolioSlugs = new Set<string>(
@@ -57,16 +57,39 @@ export const featuredPortfolioSlugs = new Set<string>(
 );
 
 const rawProjects: Project[] = [
+  // —— Stamps ——
   {
-    slug: "automatic-stamps-catalog",
+    slug: "automatic-stamps-deskmate-promo",
     category: "stamps",
     title: {
-      ar: "أختام أوتوماتيك بمقاسات متعددة",
-      en: "Automatic Stamps in Multiple Sizes",
+      ar: "إعلان أختام Deskmate الأوتوماتيك",
+      en: "Deskmate Automatic Stamps Promo",
     },
-    images: [img("shield-01.jpg"), img("shield-02.jpg"), img("shield-03.jpg")],
+    images: [img("shield-01.jpg")],
     year: "2024",
   },
+  {
+    slug: "automatic-stamps-imprint-promo",
+    category: "stamps",
+    title: {
+      ar: "إعلان أختام Imprint بمقاسات متعددة",
+      en: "Imprint Automatic Stamps Multi-Size Promo",
+    },
+    images: [img("shield-02.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "automatic-stamps-trodat-promo",
+    category: "stamps",
+    title: {
+      ar: "إعلان أختام Trodat الأوتوماتيك",
+      en: "Trodat Automatic Stamps Promo",
+    },
+    images: [img("shield-03.jpg")],
+    year: "2024",
+  },
+
+  // —— Billboards & signage ——
   {
     slug: "quriyat-cafeteria-sign",
     category: "billboards",
@@ -118,16 +141,6 @@ const rawProjects: Project[] = [
     year: "2024",
   },
   {
-    slug: "al-hammadi-wedding-x-stand",
-    category: "exhibitions",
-    title: {
-      ar: "ستاند X-Banner لأفراح الحمادي",
-      en: "Al-Hammadi Wedding X-Stand Banner",
-    },
-    images: [img("free-roll-up-mockup-1.jpg")],
-    year: "2024",
-  },
-  {
     slug: "feather-flag-service-display",
     category: "billboards",
     title: {
@@ -148,19 +161,65 @@ const rawProjects: Project[] = [
     year: "2024",
   },
   {
-    slug: "almoheet-exhibition-booth",
+    slug: "juice-menu-citylight-display",
+    category: "billboards",
+    title: {
+      ar: "لوحة سيتي لايت لقائمة عصائر",
+      en: "Juice Menu Citylight Display Board",
+    },
+    images: [img("Citylight_Mockup_1.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "madar-al-asli-outdoor-billboard",
+    category: "billboards",
+    title: {
+      ar: "لوحة إعلانية خارجية لشركة مدار الأصلي",
+      en: "Madar Al-Asli Outdoor Billboard",
+    },
+    images: [img("free-billboard-banner-mockup-2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-services-roll-up",
+    category: "billboards",
+    title: {
+      ar: "رول اب تعريفي بخدمات وكالة المحيط",
+      en: "Al Moheet Services Roll-Up Banner",
+    },
+    images: [img("free-roll-up-mockup-2.jpg")],
+    year: "2024",
+  },
+
+  // —— Exhibitions & stands ——
+  {
+    slug: "al-hammadi-wedding-x-stand",
     category: "exhibitions",
     title: {
-      ar: "بوث معرض متكامل لوكالة المحيط",
-      en: "Al Moheet Integrated Exhibition Booth",
+      ar: "ستاند X-Banner لأفراح الحمادي",
+      en: "Al-Hammadi Wedding X-Stand Banner",
     },
-    images: [
-      img("Citylight_Mockup_1.jpg"),
-      img("acrylic-exhibition-wall.jpg"),
-      img("Free_Banner_Mockup_4.jpg"),
-      img("free-billboard-banner-mockup-2.jpg"),
-      img("free-roll-up-mockup-2.jpg"),
-    ],
+    images: [img("free-roll-up-mockup-1.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-acrylic-exhibition-stand",
+    category: "exhibitions",
+    title: {
+      ar: "ستاند أكريليك مع رول اب لوكالة المحيط",
+      en: "Al Moheet Acrylic Exhibition Stand with Roll-Ups",
+    },
+    images: [img("acrylic-exhibition-wall.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "habkat-shahi-exhibition-banner",
+    category: "exhibitions",
+    title: {
+      ar: "بانر معرض لبراند حبكة شاهي",
+      en: "Habkat Shahi Exhibition Banner",
+    },
+    images: [img("Free_Banner_Mockup_4.jpg")],
     year: "2024",
   },
   {
@@ -173,6 +232,8 @@ const rawProjects: Project[] = [
     images: [img("Mockup_TSB_1.jpg")],
     year: "2024",
   },
+
+  // —— Stickers ——
   {
     slug: "rafeeqat-tamr-product-stickers",
     category: "stickers",
@@ -183,16 +244,8 @@ const rawProjects: Project[] = [
     images: [img("stickers-round-roll.jpg")],
     year: "2024",
   },
-  {
-    slug: "carwash-loyalty-cards",
-    category: "identity",
-    title: {
-      ar: "بطاقات ولاء لمغسلة سيارات",
-      en: "Car Wash Loyalty Punch Cards",
-    },
-    images: [img("stickers-note-case.jpg")],
-    year: "2024",
-  },
+
+  // —— Product printing ——
   {
     slug: "almoheet-branded-mug",
     category: "product-printing",
@@ -214,16 +267,6 @@ const rawProjects: Project[] = [
     year: "2024",
   },
   {
-    slug: "sultans-coffee-brand-identity",
-    category: "identity",
-    title: {
-      ar: "هوية بصرية لقهوة السلطان",
-      en: "Sultan's Coffee Brand Identity",
-    },
-    images: [img("Coffee_Brand_Mockup_1.jpg")],
-    year: "2024",
-  },
-  {
     slug: "dr-reem-branded-cups",
     category: "product-printing",
     title: {
@@ -234,17 +277,75 @@ const rawProjects: Project[] = [
     year: "2024",
   },
   {
-    slug: "secret-brand-printed-packaging",
+    slug: "almoheet-branded-pens",
+    category: "product-printing",
+    title: {
+      ar: "أقلام مطبوعة بشعار المحيط",
+      en: "Al Moheet Logo Printed Pens",
+    },
+    images: [img("promo-pen.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-keychain",
+    category: "product-printing",
+    title: {
+      ar: "ميدالية مفاتيح مطبوعة لوكالة المحيط",
+      en: "Al Moheet Branded Metal Keychain",
+    },
+    images: [img("promo-keychain.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-tote-bag",
+    category: "product-printing",
+    title: {
+      ar: "حقيبة قماشية مطبوعة لوكالة المحيط",
+      en: "Al Moheet Branded Canvas Tote Bag",
+    },
+    images: [img("promo-tote-bag.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-drawstring-bag",
+    category: "product-printing",
+    title: {
+      ar: "حقيبة drawstring مطبوعة لوكالة المحيط",
+      en: "Al Moheet Branded Drawstring Bag",
+    },
+    images: [img("Bag_Mockup.jpg")],
+    year: "2024",
+  },
+
+  // —— Packaging ——
+  {
+    slug: "secret-brand-gift-box",
     category: "packaging",
     title: {
-      ar: "علب وأكياس وأكواب مطبوعة لبراند سكريت",
-      en: "Secret Brand Printed Boxes, Bags & Cups",
+      ar: "علبة هدايا مطبوعة لبراند سكريت",
+      en: "Secret Brand Printed Gift Box",
     },
-    images: [
-      img("promo-gift-box.jpg"),
-      img("promo-paper-bag.jpg"),
-      img("product-paper-cup-1.jpg"),
-    ],
+    images: [img("promo-gift-box.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "secret-brand-paper-bag",
+    category: "packaging",
+    title: {
+      ar: "كيس ورقي مطبوع لبراند سكريت",
+      en: "Secret Brand Printed Paper Bag",
+    },
+    images: [img("promo-paper-bag.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "secret-brand-paper-cups",
+    category: "packaging",
+    title: {
+      ar: "أكواب ورقية مطبوعة لبراند سكريت",
+      en: "Secret Brand Printed Paper Cups",
+    },
+    images: [img("product-paper-cup-1.jpg")],
     year: "2024",
   },
   {
@@ -284,11 +385,27 @@ const rawProjects: Project[] = [
       ar: "علبة مطوية مطبوعة لوكالة المحيط",
       en: "Al Moheet Branded Folding Gift Box",
     },
-    images: [
-      img("product-folding-box.jpg"),
-      img("Free_Pouch_Mockup_1.jpg"),
-      img("Large_Honey_Jar_Mockup_3.jpg"),
-    ],
+    images: [img("product-folding-box.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "sultans-coffee-pouch-packaging",
+    category: "packaging",
+    title: {
+      ar: "تغليف كيس قهوة السلطان",
+      en: "Sultan's Coffee Stand-Up Pouch Packaging",
+    },
+    images: [img("Free_Pouch_Mockup_1.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "premium-honey-jar-packaging",
+    category: "packaging",
+    title: {
+      ar: "تصميم عبوة عسل فاخرة",
+      en: "Premium Honey Jar Packaging Design",
+    },
+    images: [img("Large_Honey_Jar_Mockup_3.jpg")],
     year: "2024",
   },
   {
@@ -301,34 +418,26 @@ const rawProjects: Project[] = [
     images: [img("product-wrapping-paper.jpg")],
     year: "2024",
   },
+
+  // —— Identity & branding ——
   {
-    slug: "almoheet-branded-pens",
-    category: "product-printing",
+    slug: "sultans-coffee-brand-identity",
+    category: "identity",
     title: {
-      ar: "أقلام مطبوعة بشعار المحيط",
-      en: "Al Moheet Logo Printed Pens",
+      ar: "هوية بصرية لقهوة السلطان",
+      en: "Sultan's Coffee Brand Identity",
     },
-    images: [img("promo-pen.jpg")],
+    images: [img("Coffee_Brand_Mockup_1.jpg")],
     year: "2024",
   },
   {
-    slug: "almoheet-branded-keychain",
-    category: "product-printing",
+    slug: "carwash-loyalty-cards",
+    category: "identity",
     title: {
-      ar: "ميدالية مفاتيح مطبوعة",
-      en: "Branded Metal Keychain",
+      ar: "بطاقات ولاء لمغسلة سيارات",
+      en: "Car Wash Loyalty Punch Cards",
     },
-    images: [img("promo-keychain.jpg"), img("Free_Plastic_ID_Mockup_3.jpg")],
-    year: "2024",
-  },
-  {
-    slug: "almoheet-branded-tote-bag",
-    category: "product-printing",
-    title: {
-      ar: "حقيبة قماشية مطبوعة لوكالة المحيط",
-      en: "Al Moheet Branded Canvas Tote Bag",
-    },
-    images: [img("promo-tote-bag.jpg"), img("Bag_Mockup.jpg")],
+    images: [img("stickers-note-case.jpg")],
     year: "2024",
   },
   {
@@ -358,15 +467,77 @@ const rawProjects: Project[] = [
       ar: "قرطاسية مكتبية لوكالة المحيط",
       en: "Al Moheet Corporate Stationery Set",
     },
-    images: [
-      img("identity-stationery.jpg"),
-      img("PHOTO-2026-06-21-00-05-08.jpg"),
-      img("photo-2026-06-21-00-05-08-2.jpg"),
-      img("PHOTO-2026-06-21-00-11-26.jpg"),
-      img("A4_Borchure_Mockup_8.jpg"),
-      img("Poster_Mockup_1.jpg"),
-      img("Vertcial_Spiral_Book_Mockup_2.jpg"),
-    ],
+    images: [img("identity-stationery.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-round-stickers",
+    category: "stickers",
+    title: {
+      ar: "ملصقات دائرية بشعار المحيط",
+      en: "Al Moheet Branded Round Stickers",
+    },
+    images: [img("PHOTO-2026-06-21-00-05-08.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-branded-square-stickers",
+    category: "stickers",
+    title: {
+      ar: "ملصقات مربعة بشعار المحيط",
+      en: "Al Moheet Branded Square Stickers",
+    },
+    images: [img("photo-2026-06-21-00-05-08-2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-agency-business-cards",
+    category: "identity",
+    title: {
+      ar: "بطاقات عمل وكالة المحيط",
+      en: "Al Moheet Agency Business Cards",
+    },
+    images: [img("PHOTO-2026-06-21-00-11-26.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "conscience-speaks-booklet",
+    category: "identity",
+    title: {
+      ar: "كتيب «اجعل ضميرك يتكلم»",
+      en: "Make Your Conscience Speak Booklet",
+    },
+    images: [img("A4_Borchure_Mockup_8.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "lekol-althemar-nursery-poster",
+    category: "identity",
+    title: {
+      ar: "بوستر حضانة لكل الثمار الأهلية",
+      en: "Lekol Althemar Nursery Promotional Poster",
+    },
+    images: [img("Poster_Mockup_1.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "almoheet-promotional-notebook",
+    category: "identity",
+    title: {
+      ar: "دفتر ملاحظات ترويجي لوكالة المحيط",
+      en: "Al Moheet Promotional Spiral Notebook",
+    },
+    images: [img("Vertcial_Spiral_Book_Mockup_2.jpg")],
+    year: "2024",
+  },
+  {
+    slug: "petro-park-employee-id-cards",
+    category: "identity",
+    title: {
+      ar: "بطاقات موظفين لشركة بترو بارك",
+      en: "Petro Park Employee ID Cards",
+    },
+    images: [img("Free_Plastic_ID_Mockup_3.jpg")],
     year: "2024",
   },
   {
@@ -405,7 +576,7 @@ function uniqueImages(images: string[]): string[] {
   return [...new Set(images)];
 }
 
-/** Normalize projects: dedupe images within each project. */
+/** One image per project — enforce single-concept galleries. */
 export const projects: Project[] = rawProjects.map((project) => ({
   ...project,
   images: uniqueImages(project.images),
